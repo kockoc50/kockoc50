@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Claude for Word</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+    <link rel="stylesheet" href="taskpane.css" />
+</head>
+<body>
+    <main id="app">
+        <header>
+            <h1>Claude for Word</h1>
+            <button id="settings-toggle" title="הגדרות">⚙️</button>
+        </header>
+
+        <section id="settings-panel" class="hidden">
+            <label for="api-key">מפתח API של Anthropic</label>
+            <input type="password" id="api-key" placeholder="sk-ant-..." autocomplete="off" />
+
+            <label for="model">מודל</label>
+            <select id="model">
+                <option value="claude-opus-4-6">Claude Opus 4.6 (החזק ביותר)</option>
+                <option value="claude-sonnet-4-6" selected>Claude Sonnet 4.6 (מאוזן)</option>
+                <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 (מהיר)</option>
+            </select>
+
+            <button id="save-settings" class="primary">שמור הגדרות</button>
+            <p class="hint">המפתח נשמר מקומית בדפדפן בלבד. לשימוש בייצור, מומלץ להשתמש בפרוקסי שרת.</p>
+        </section>
+
+        <section id="main-panel">
+            <div class="action-group">
+                <h2>פעולות מהירות על הטקסט המסומן</h2>
+                <div class="button-grid">
+                    <button class="action-btn" data-action="improve">שפר ניסוח</button>
+                    <button class="action-btn" data-action="summarize">סכם</button>
+                    <button class="action-btn" data-action="translate-en">תרגם לאנגלית</button>
+                    <button class="action-btn" data-action="translate-he">תרגם לעברית</button>
+                    <button class="action-btn" data-action="shorten">קצר</button>
+                    <button class="action-btn" data-action="expand">הרחב</button>
+                    <button class="action-btn" data-action="fix">תקן שגיאות</button>
+                    <button class="action-btn" data-action="formal">סגנון רשמי</button>
+                </div>
+            </div>
+
+            <div class="action-group">
+                <h2>הוראה חופשית</h2>
+                <textarea id="custom-prompt" rows="4" placeholder="כתוב ל-Claude מה לעשות עם הטקסט המסומן, או בקש ממנו ליצור תוכן חדש..."></textarea>
+                <div class="options">
+                    <label>
+                        <input type="checkbox" id="use-selection" checked />
+                        השתמש בטקסט המסומן כהקשר
+                    </label>
+                </div>
+                <button id="run-custom" class="primary">שלח ל-Claude</button>
+            </div>
+
+            <div class="action-group">
+                <h2>תוצאה</h2>
+                <div id="output" class="output"></div>
+                <div class="result-actions hidden" id="result-actions">
+                    <button id="insert-result">החלף טקסט מסומן</button>
+                    <button id="append-result">הוסף בסוף המסמך</button>
+                    <button id="copy-result">העתק</button>
+                </div>
+            </div>
+
+            <div id="status" class="status"></div>
+        </section>
+    </main>
+
+    <script src="taskpane.js"></script>
+</body>
+</html>

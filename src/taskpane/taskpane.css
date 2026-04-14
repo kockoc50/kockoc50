@@ -1,0 +1,225 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", "Arial", sans-serif;
+    background: #faf9f6;
+    color: #1a1a1a;
+    font-size: 14px;
+}
+
+#app {
+    padding: 16px;
+    max-width: 100%;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 18px;
+    color: #c96442;
+}
+
+#settings-toggle {
+    background: transparent;
+    border: 1px solid #d4d4d4;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#settings-toggle:hover {
+    background: #f0f0f0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#settings-panel {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+}
+
+#settings-panel label {
+    display: block;
+    font-weight: 600;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+#settings-panel input,
+#settings-panel select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #d4d4d4;
+    border-radius: 6px;
+    font-size: 14px;
+    background: #fff;
+}
+
+.hint {
+    font-size: 11px;
+    color: #6b6b6b;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+.action-group {
+    margin-bottom: 20px;
+}
+
+.action-group h2 {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #6b6b6b;
+    margin: 0 0 8px 0;
+    letter-spacing: 0.5px;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.action-btn {
+    padding: 8px 10px;
+    background: #fff;
+    border: 1px solid #d4d4d4;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    text-align: center;
+    transition: all 0.15s;
+}
+
+.action-btn:hover {
+    background: #c96442;
+    color: #fff;
+    border-color: #c96442;
+}
+
+.action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+button.primary {
+    background: #c96442;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 8px;
+}
+
+button.primary:hover {
+    background: #a8502f;
+}
+
+button.primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #d4d4d4;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    resize: vertical;
+}
+
+.options {
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+.output {
+    min-height: 60px;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    white-space: pre-wrap;
+    font-size: 13px;
+    line-height: 1.5;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.output:empty::before {
+    content: "התוצאה תופיע כאן...";
+    color: #9b9b9b;
+}
+
+.result-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.result-actions button {
+    flex: 1;
+    min-width: 80px;
+    padding: 8px;
+    background: #fff;
+    border: 1px solid #d4d4d4;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.result-actions button:hover {
+    background: #f0f0f0;
+}
+
+.status {
+    margin-top: 12px;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    min-height: 20px;
+}
+
+.status.error {
+    background: #fee;
+    color: #c00;
+    border: 1px solid #fcc;
+}
+
+.status.success {
+    background: #efe;
+    color: #060;
+    border: 1px solid #cfc;
+}
+
+.status.info {
+    background: #eef;
+    color: #006;
+    border: 1px solid #ccf;
+}
