@@ -7,7 +7,7 @@
     xsi:type="TaskPaneApp">
 
   <Id>8b1f2c9e-5a4d-4e2f-9c1a-3d7e8f2a1b4c</Id>
-  <Version>1.0.0.0</Version>
+  <Version>1.1.0.0</Version>
   <ProviderName>kockoc50</ProviderName>
   <DefaultLocale>he-IL</DefaultLocale>
   <DisplayName DefaultValue="Claude for Word" />
@@ -35,6 +35,7 @@
             <Description resid="GetStarted.Description"/>
             <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
           </GetStarted>
+          <FunctionFile resid="Claude.Commands.Url" />
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
             <OfficeTab id="TabHome">
               <Group id="Claude.Group">
@@ -60,6 +61,51 @@
                     <SourceLocation resid="Claude.Taskpane.Url" />
                   </Action>
                 </Control>
+                <Control xsi:type="Button" id="Claude.QuickImprove">
+                  <Label resid="Claude.QuickImprove.Label" />
+                  <Supertip>
+                    <Title resid="Claude.QuickImprove.Label" />
+                    <Description resid="Claude.QuickImprove.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Claude.Icon16" />
+                    <bt:Image size="32" resid="Claude.Icon32" />
+                    <bt:Image size="80" resid="Claude.Icon80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>quickImprove</FunctionName>
+                  </Action>
+                </Control>
+                <Control xsi:type="Button" id="Claude.QuickFix">
+                  <Label resid="Claude.QuickFix.Label" />
+                  <Supertip>
+                    <Title resid="Claude.QuickFix.Label" />
+                    <Description resid="Claude.QuickFix.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Claude.Icon16" />
+                    <bt:Image size="32" resid="Claude.Icon32" />
+                    <bt:Image size="80" resid="Claude.Icon80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>quickFix</FunctionName>
+                  </Action>
+                </Control>
+                <Control xsi:type="Button" id="Claude.QuickSummarize">
+                  <Label resid="Claude.QuickSummarize.Label" />
+                  <Supertip>
+                    <Title resid="Claude.QuickSummarize.Label" />
+                    <Description resid="Claude.QuickSummarize.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Claude.Icon16" />
+                    <bt:Image size="32" resid="Claude.Icon32" />
+                    <bt:Image size="80" resid="Claude.Icon80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>quickSummarize</FunctionName>
+                  </Action>
+                </Control>
               </Group>
             </OfficeTab>
           </ExtensionPoint>
@@ -75,15 +121,22 @@
       <bt:Urls>
         <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://docs.anthropic.com" />
         <bt:Url id="Claude.Taskpane.Url" DefaultValue="https://localhost:3000/src/taskpane/taskpane.html" />
+        <bt:Url id="Claude.Commands.Url" DefaultValue="https://localhost:3000/src/commands/commands.html" />
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GetStarted.Title" DefaultValue="Claude for Word" />
         <bt:String id="Claude.GroupLabel" DefaultValue="Claude AI" />
         <bt:String id="Claude.TaskpaneButton.Label" DefaultValue="Open Claude" />
+        <bt:String id="Claude.QuickImprove.Label" DefaultValue="Improve" />
+        <bt:String id="Claude.QuickFix.Label" DefaultValue="Fix Errors" />
+        <bt:String id="Claude.QuickSummarize.Label" DefaultValue="Summarize" />
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="GetStarted.Description" DefaultValue="Claude AI is now connected to Word. Click 'Open Claude' to get started." />
-        <bt:String id="Claude.TaskpaneButton.Tooltip" DefaultValue="Open the Claude AI taskpane to rewrite, summarize or translate text." />
+        <bt:String id="Claude.TaskpaneButton.Tooltip" DefaultValue="Open the Claude AI taskpane for chat, custom prompts, and more actions." />
+        <bt:String id="Claude.QuickImprove.Tooltip" DefaultValue="Rewrite and improve the selected text in place." />
+        <bt:String id="Claude.QuickFix.Tooltip" DefaultValue="Fix spelling and grammar in the selected text." />
+        <bt:String id="Claude.QuickSummarize.Tooltip" DefaultValue="Replace the selection with a concise summary." />
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
