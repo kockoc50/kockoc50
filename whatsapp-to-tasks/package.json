@@ -1,0 +1,16 @@
+{
+  "name": "whatsapp-to-tasks",
+  "version": "1.0.0",
+  "description": "הודעות WhatsApp → משימות באקסל דרך Claude AI",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "dotenv": "^16.4.7",
+    "exceljs": "^4.4.0",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.26.0"
+  }
+}
