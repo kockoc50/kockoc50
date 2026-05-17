@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>📋 משימות</title>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #2B579A;
+    --blue-light: #e8f0fe;
+    --green: #1a7f4b;
+    --red: #c0392b;
+    --orange: #e67e22;
+    --gray: #6b7280;
+    --bg: #f3f6fb;
+    --radius: 14px;
+  }
+
+  body {
+    font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    padding: 16px;
+    color: #1a1a2e;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  header h1 { font-size: 20px; color: var(--blue); }
+
+  .card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+
+  label { display: block; font-size: 13px; font-weight: 600; color: var(--gray); margin-bottom: 6px; }
+
+  textarea, input[type="password"] {
+    width: 100%;
+    border: 2px solid #dde3f0;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 16px;
+    font-family: inherit;
+    direction: rtl;
+    outline: none;
+    transition: border 0.2s;
+    background: #fafbff;
+  }
+  textarea { min-height: 100px; resize: vertical; }
+  textarea:focus, input[type="password"]:focus { border-color: var(--blue); background: white; }
+
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+  .btn:active { opacity: 0.85; transform: scale(0.98); }
+  .btn-primary { background: var(--blue); color: white; }
+  .btn-green { background: var(--green); color: white; }
+  .btn-outline { background: white; color: var(--blue); border: 2px solid var(--blue); }
+
+  .status-bar {
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+    display: none;
+    text-align: center;
+  }
+  .status-bar.show { display: block; }
+  .status-bar.loading { background: #fff8e1; color: #b45309; }
+  .status-bar.success { background: #ecfdf5; color: var(--green); }
+  .status-bar.error { background: #fef2f2; color: var(--red); }
+
+  /* Task list */
+  .task-count { font-size: 13px; color: var(--gray); margin-bottom: 12px; }
+
+  .task-item {
+    border-right: 4px solid #ddd;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    border-radius: 0 10px 10px 0;
+    background: #fafbff;
+    font-size: 14px;
+  }
+  .task-item.high { border-color: #e74c3c; }
+  .task-item.medium { border-color: var(--orange); }
+  .task-item.low { border-color: var(--green); }
+
+  .task-title { font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .task-meta { color: var(--gray); font-size: 12px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .badge-high { background: #fde8e8; color: #c0392b; }
+  .badge-medium { background: #fef3e2; color: #d97706; }
+  .badge-low { background: #e8f8f0; color: var(--green); }
+
+  .tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .tab {
+    flex: 1;
+    padding: 10px 4px;
+    border: 2px solid #dde3f0;
+    border-radius: 10px;
+    background: white;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+  }
+  .tab.active { background: var(--blue); color: white; border-color: var(--blue); }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .hint { font-size: 12px; color: var(--gray); margin-top: 8px; text-align: center; }
+
+  .settings-link {
+    font-size: 22px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  #setup-screen { max-width: 440px; margin: 0 auto; }
+  #main-screen { max-width: 480px; margin: 0 auto; }
+</style>
+</head>
+<body>
+
+<!-- ════ SETUP SCREEN ════ -->
+<div id="setup-screen" style="display:none">
+  <div style="text-align:center; padding: 30px 0 20px">
+    <div style="font-size:48px">📋</div>
+    <h1 style="font-size:24px; color:var(--blue); margin-top:8px">משימות</h1>
+    <p style="color:var(--gray); margin-top:6px; font-size:14px">הגדרה חד-פעמית – 30 שניות</p>
+  </div>
+  <div class="card">
+    <label for="key-input">🔑 מפתח API של Anthropic</label>
+    <input type="password" id="key-input" placeholder="sk-ant-api03-..." autocomplete="off" />
+    <p class="hint">מקבלים בחינם ב-<a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> ← API Keys</p>
+    <button class="btn btn-primary" onclick="saveKey()">שמור והתחל ➜</button>
+  </div>
+</div>
+
+<!-- ════ MAIN SCREEN ════ -->
+<div id="main-screen" style="display:none">
+  <header>
+    <h1>📋 משימות</h1>
+    <button class="settings-link" onclick="showSettings()" title="הגדרות">⚙️</button>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('add')">➕ הוסף</button>
+    <button class="tab" onclick="switchTab('list')">📄 רשימה</button>
+  </div>
+
+  <!-- Add tab -->
+  <div id="tab-add" class="panel active">
+    <div class="card">
+      <label for="msg-input">כתבי את המשימה בחופשיות:</label>
+      <textarea id="msg-input" placeholder="לדוגמה:&#10;לקנות חלב ולחם&#10;להגיש דוח עד יום שלישי – דחוף!&#10;לקבוע תור לרופא בשבוע הבא"></textarea>
+      <button class="btn btn-primary" onclick="addTask()">➕ הוסף משימה</button>
+      <div id="status" class="status-bar"></div>
+    </div>
+  </div>
+
+  <!-- List tab -->
+  <div id="tab-list" class="panel">
+    <div class="card" id="list-card">
+      <div class="task-count" id="task-count"></div>
+      <div id="task-list"></div>
+      <button class="btn btn-green" onclick="exportExcel()" style="margin-top:16px">⬇️ הורד כ-Excel</button>
+      <button class="btn btn-outline" onclick="clearAll()" style="margin-top:8px; font-size:14px">🗑 נקה הכל</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'tasks_v1';
+const KEY_STORAGE = 'anthropic_key';
+
+// ── Init ─────────────────────────────────────────────────────
+
+window.addEventListener('load', () => {
+  const key = localStorage.getItem(KEY_STORAGE);
+  if (key && key.startsWith('sk-')) {
+    showMain();
+  } else {
+    document.getElementById('setup-screen').style.display = 'block';
+  }
+});
+
+function saveKey() {
+  const key = document.getElementById('key-input').value.trim();
+  if (!key.startsWith('sk-')) {
+    alert('המפתח צריך להתחיל ב- sk-');
+    return;
+  }
+  localStorage.setItem(KEY_STORAGE, key);
+  showMain();
+}
+
+function showMain() {
+  document.getElementById('setup-screen').style.display = 'none';
+  document.getElementById('main-screen').style.display = 'block';
+  renderList();
+}
+
+function showSettings() {
+  const key = localStorage.getItem(KEY_STORAGE) || '';
+  const newKey = prompt('מפתח API:', key);
+  if (newKey !== null) {
+    localStorage.setItem(KEY_STORAGE, newKey.trim());
+    alert('נשמר ✓');
+  }
+}
+
+// ── Tabs ──────────────────────────────────────────────────────
+
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    t.classList.toggle('active', (i === 0 && name === 'add') || (i === 1 && name === 'list'));
+  });
+  document.getElementById('tab-add').classList.toggle('active', name === 'add');
+  document.getElementById('tab-list').classList.toggle('active', name === 'list');
+  if (name === 'list') renderList();
+}
+
+// ── Add Task ──────────────────────────────────────────────────
+
+async function addTask() {
+  const input = document.getElementById('msg-input');
+  const text = input.value.trim();
+  if (!text) { setStatus('כתבי משימה כלשהי', 'error'); return; }
+
+  setStatus('🤖 Claude מנתח את המשימה...', 'loading');
+
+  try {
+    const parsed = await callClaude(text);
+    const task = {
+      id: Date.now(),
+      date: new Date().toLocaleDateString('he-IL'),
+      task: parsed.task || text,
+      priority: parsed.priority || 'בינונית',
+      due_date: parsed.due_date || '',
+      category: parsed.category || 'אחר',
+      status: 'פתוח',
+      original: text,
+      notes: parsed.notes || ''
+    };
+    saveTasks([...getTasks(), task]);
+    input.value = '';
+    setStatus('✅ המשימה נוספה: ' + task.task, 'success');
+  } catch (err) {
+    setStatus('❌ ' + err.message, 'error');
+  }
+}
+
+async function callClaude(text) {
+  const key = localStorage.getItem(KEY_STORAGE);
+  const today = new Date().toLocaleDateString('he-IL');
+
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': key,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 400,
+      system: `אתה עוזר שמחלץ פרטי משימות מטקסט. החזר JSON בלבד, ללא טקסט נוסף. היום: ${today}`,
+      messages: [{
+        role: 'user',
+        content: `נתח: "${text}"\n\nהחזר JSON:\n{"task":"כותרת קצרה","priority":"גבוהה|בינונית|נמוכה","due_date":"DD/MM/YYYY או null","category":"עבודה|אישי|קניות|בית|בריאות|פיננסי|לימודים|אחר","notes":"פרטים נוספים או null"}`
+      }]
+    })
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error?.message || 'שגיאת API ' + res.status);
+  }
+
+  const data = await res.json();
+  const raw = data.content[0].text.trim().replace(/^```(?:json)?\n?/i, '').replace(/\n?```$/, '');
+  return JSON.parse(raw);
+}
+
+// ── Storage ───────────────────────────────────────────────────
+
+function getTasks() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch { return []; }
+}
+function saveTasks(tasks) { localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks)); }
+
+// ── Render ────────────────────────────────────────────────────
+
+function renderList() {
+  const tasks = getTasks();
+  const count = document.getElementById('task-count');
+  const list = document.getElementById('task-list');
+
+  count.textContent = tasks.length === 0 ? 'אין משימות עדיין' : `${tasks.length} משימות`;
+
+  if (tasks.length === 0) {
+    list.innerHTML = '<p style="color:var(--gray);text-align:center;padding:20px 0">לחצי ➕ הוסף כדי להתחיל</p>';
+    return;
+  }
+
+  const priorityClass = { 'גבוהה': 'high', 'בינונית': 'medium', 'נמוכה': 'low' };
+  const badgeClass = { 'גבוהה': 'badge-high', 'בינונית': 'badge-medium', 'נמוכה': 'badge-low' };
+
+  list.innerHTML = [...tasks].reverse().map(t => `
+    <div class="task-item ${priorityClass[t.priority] || 'medium'}">
+      <div class="task-title">${esc(t.task)}</div>
+      <div class="task-meta">
+        <span class="badge ${badgeClass[t.priority] || 'badge-medium'}">${esc(t.priority)}</span>
+        ${t.due_date ? `<span>📅 ${esc(t.due_date)}</span>` : ''}
+        ${t.category ? `<span>🏷 ${esc(t.category)}</span>` : ''}
+        <span>📆 ${esc(t.date)}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── Export Excel ──────────────────────────────────────────────
+
+function exportExcel() {
+  const tasks = getTasks();
+  if (!tasks.length) { alert('אין משימות לייצא'); return; }
+
+  const headers = ['#', 'תאריך קבלה', 'משימה', 'עדיפות', 'תאריך יעד', 'קטגוריה', 'סטטוס', 'הודעה מקורית', 'הערות'];
+  const rows = tasks.map((t, i) => [
+    i + 1, t.date, t.task, t.priority, t.due_date || '', t.category, t.status, t.original, t.notes || ''
+  ]);
+
+  const ws = XLSX.utils.aoa_to_sheet([headers, ...rows]);
+  ws['!cols'] = [5, 12, 40, 10, 12, 12, 10, 40, 25].map(w => ({ wch: w }));
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'משימות');
+  XLSX.writeFile(wb, 'משימות.xlsx');
+}
+
+// ── Clear ─────────────────────────────────────────────────────
+
+function clearAll() {
+  if (confirm('למחוק את כל המשימות? לא ניתן לשחזר.')) {
+    saveTasks([]);
+    renderList();
+  }
+}
+
+// ── Status ────────────────────────────────────────────────────
+
+function setStatus(msg, type) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.className = 'status-bar show ' + type;
+  if (type === 'success') setTimeout(() => el.classList.remove('show'), 3500);
+}
+</script>
+</body>
+</html>
