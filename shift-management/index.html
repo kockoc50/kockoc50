@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ניהול משמרות נהגי משאיות</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="app-header">
+  <h1>🚚 ניהול משמרות – נהגי משאיות</h1>
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="schedule">לוח משמרות</button>
+    <button class="tab-btn" data-tab="drivers">נהגים</button>
+    <button class="tab-btn" data-tab="summary">סיכום שעות</button>
+  </nav>
+</header>
+
+<main>
+  <!-- ===== לוח משמרות ===== -->
+  <section id="tab-schedule" class="tab-panel active">
+    <div class="toolbar">
+      <button id="prevWeek" title="שבוע קודם">◀ שבוע קודם</button>
+      <div class="week-label" id="weekLabel"></div>
+      <button id="nextWeek" title="שבוע הבא">שבוע הבא ▶</button>
+      <button id="todayBtn">השבוע הנוכחי</button>
+      <span class="spacer"></span>
+      <button id="copyWeekBtn" class="secondary">העתק שבוע ➜ שבוע הבא</button>
+      <button id="exportCsvBtn" class="secondary">ייצוא CSV</button>
+      <button id="printBtn" class="secondary">הדפסה</button>
+    </div>
+
+    <div class="table-wrap">
+      <table id="scheduleTable" class="schedule-table">
+        <thead>
+          <tr id="scheduleHeadRow"></tr>
+        </thead>
+        <tbody id="scheduleBody"></tbody>
+      </table>
+    </div>
+
+    <p class="hint">לחצו על תא ריק כדי לשבץ נהג למשמרת. לחצו על שיבוץ קיים כדי לערוך או להסיר.</p>
+  </section>
+
+  <!-- ===== נהגים ===== -->
+  <section id="tab-drivers" class="tab-panel">
+    <div class="toolbar">
+      <button id="addDriverBtn">+ נהג חדש</button>
+    </div>
+    <div class="table-wrap">
+      <table class="drivers-table">
+        <thead>
+          <tr>
+            <th>שם הנהג</th>
+            <th>טלפון</th>
+            <th>מספר רישיון</th>
+            <th>מספר משאית</th>
+            <th>סטטוס</th>
+            <th>פעולות</th>
+          </tr>
+        </thead>
+        <tbody id="driversBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== סיכום שעות ===== -->
+  <section id="tab-summary" class="tab-panel">
+    <p class="hint">סיכום שעות עבודה משוער לפי נהג, עבור השבוע המוצג בלוח המשמרות.</p>
+    <div class="table-wrap">
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>נהג</th>
+            <th>מס' משמרות</th>
+            <th>סה"כ שעות</th>
+            <th>פירוט משמרות</th>
+          </tr>
+        </thead>
+        <tbody id="summaryBody"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<!-- ===== מודאל: שיבוץ למשמרת ===== -->
+<div id="assignModal" class="modal-overlay hidden">
+  <div class="modal">
+    <h2 id="assignModalTitle">שיבוץ למשמרת</h2>
+    <div class="modal-body">
+      <label>נהג
+        <select id="assignDriverSelect"></select>
+      </label>
+      <label>מספר משאית (אופציונלי, ברירת מחדל מהנהג)
+        <input type="text" id="assignTruckInput" placeholder="לדוגמה: 12-345-67" />
+      </label>
+      <label>הערה
+        <input type="text" id="assignNoteInput" placeholder="הערה חופשית..." />
+      </label>
+      <div id="assignWarning" class="warning hidden"></div>
+      <div id="existingAssignments" class="existing-assignments"></div>
+    </div>
+    <div class="modal-actions">
+      <button id="assignSaveBtn">הוסף שיבוץ</button>
+      <button id="assignCloseBtn" class="secondary">סגור</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== מודאל: נהג ===== -->
+<div id="driverModal" class="modal-overlay hidden">
+  <div class="modal">
+    <h2 id="driverModalTitle">נהג חדש</h2>
+    <div class="modal-body">
+      <input type="hidden" id="driverId" />
+      <label>שם מלא
+        <input type="text" id="driverName" />
+      </label>
+      <label>טלפון
+        <input type="text" id="driverPhone" />
+      </label>
+      <label>מספר רישיון
+        <input type="text" id="driverLicense" />
+      </label>
+      <label>מספר משאית קבועה
+        <input type="text" id="driverTruck" />
+      </label>
+      <label>
+        <input type="checkbox" id="driverActive" checked />
+        נהג פעיל
+      </label>
+    </div>
+    <div class="modal-actions">
+      <button id="driverSaveBtn">שמירה</button>
+      <button id="driverDeleteBtn" class="danger hidden">מחיקת נהג</button>
+      <button id="driverCloseBtn" class="secondary">ביטול</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
