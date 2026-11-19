@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KA Group | מדריך כלי ה-AI המובילים 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karantina:wght@400;700&family=Heebo:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --y:#FBC926; --y2:#FFD84D; --ink:#0B0B0B; --ink2:#131313; --card:#161616; --line:#262626;
+  --tx:#F4F1E8; --mute:#A39E90; --dim:#6B675E;
+  --ang:-26deg;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--tx);font-family:'Heebo',system-ui,sans-serif;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.wrap{max-width:1280px;margin:0 auto;padding:0 28px}
+.logo{display:block;color:var(--tx)}
+.logo svg{display:block;width:100%;height:auto}
+.disp{font-family:'Karantina','Heebo',sans-serif;font-weight:700;line-height:.86;letter-spacing:-.01em}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.07;
+  background-image:linear-gradient(var(--tx) 1px,transparent 1px),linear-gradient(90deg,var(--tx) 1px,transparent 1px);
+  background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 70%)}
+main,header,footer{position:relative;z-index:1}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(11,11,11,.72);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:22px;height:66px}
+.bar .logo{width:92px}
+.bar nav{display:flex;gap:4px;margin-inline-start:auto;flex-wrap:nowrap}
+.bar nav a{padding:8px 12px;border-radius:99px;font-size:14px;color:var(--mute);transition:.2s}
+.bar nav a:hover{color:var(--ink);background:var(--y)}
+.kbtn{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:99px;padding:8px 14px;font-size:14px;color:var(--mute);transition:.2s;white-space:nowrap}
+.kbtn:hover{border-color:var(--y);color:var(--tx)}
+.kbtn kbd{font-family:inherit;font-size:11px;border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+
+/* hero */
+.hero{position:relative;min-height:calc(100vh - 66px);display:flex;align-items:center;overflow:hidden;padding:60px 0 120px}
+.slash{position:absolute;top:-20%;bottom:-20%;width:120px;background:var(--y);left:24%;transform:rotate(var(--ang));transform-origin:center;
+  animation:slashIn 1.2s cubic-bezier(.7,0,.2,1) both;box-shadow:0 0 120px rgba(251,201,38,.25)}
+.slash.s2{width:12px;left:34%;opacity:.9;animation-delay:.15s}
+@keyframes slashIn{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;width:100%}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:14px;letter-spacing:.06em;color:var(--y);border:1px solid rgba(251,201,38,.35);border-radius:99px;padding:6px 14px;background:rgba(11,11,11,.6)}
+.eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--y);box-shadow:0 0 0 0 var(--y);animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(251,201,38,0)}100%{box-shadow:0 0 0 0 rgba(251,201,38,0)}}
+.hero h1{font-size:clamp(76px,10.5vw,168px);margin:22px 0 10px;text-shadow:0 4px 40px rgba(0,0,0,.6)}
+.hero h1 .hl{color:var(--ink);background:var(--y);padding:0 .12em;display:inline-block;transform:rotate(-2deg)}
+.hero h1 .row{display:block;overflow:hidden;white-space:nowrap;padding-bottom:.04em}
+.hero h1 .row>span{display:inline-block;animation:up .9s cubic-bezier(.2,.8,.2,1) both}
+.hero h1 .row:nth-child(2)>span{animation-delay:.12s}
+@keyframes up{from{transform:translateY(105%)}to{transform:none}}
+.lead{font-size:clamp(18px,1.6vw,22px);color:var(--mute);max-width:560px;background:rgba(11,11,11,.55);padding:4px 0}
+.lead b{color:var(--tx);font-weight:700}
+.cta{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 26px;border-radius:99px;font-weight:800;font-size:17px;transition:.25s}
+.btn.pri{background:var(--y);color:var(--ink)}
+.btn.pri:hover{transform:translateY(-3px) rotate(-1deg);box-shadow:0 14px 40px rgba(251,201,38,.35)}
+.btn.sec{border:1.5px solid var(--tx)}
+.btn.sec:hover{background:var(--tx);color:var(--ink)}
+.herologo{position:relative;padding:34px;background:rgba(11,11,11,.82);border:1px solid var(--line);border-radius:28px;animation:float 7s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-12px) rotate(-.6deg)}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-radius:18px;overflow:hidden;margin-top:18px}
+.stats div{background:var(--ink2);padding:16px 10px;text-align:center}
+.stats b{display:block;font-family:'Karantina';font-size:52px;line-height:.9;color:var(--y)}
+.stats span{font-size:13px;color:var(--mute)}
+
+/* marquee */
+.tickwrap{overflow:hidden;margin-top:-70px;padding:24px 0;position:relative;z-index:3}
+.ticker{position:relative;background:var(--y);color:var(--ink);transform:rotate(-1.4deg);margin:0 -30px;padding:14px 0;overflow:hidden;z-index:3;border-block:3px solid var(--ink)}
+.track{display:flex;width:max-content;animation:marq 55s linear infinite;direction:ltr}
+.ticker:hover .track{animation-play-state:paused}
+.track span{direction:rtl;white-space:nowrap;font-weight:800;font-size:19px;padding:0 26px;display:flex;align-items:center;gap:26px}
+.track span::after{content:"";width:12px;height:12px;background:var(--ink);transform:rotate(45deg)}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+section{padding:120px 0 40px}
+.sh{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:44px;flex-wrap:wrap}
+.sh .num{font-family:'Karantina';font-size:22px;color:var(--y);letter-spacing:.1em}
+.sh h2{font-size:clamp(56px,7vw,104px)}
+.sh p{color:var(--mute);max-width:440px;font-size:17px}
+
+/* intent picker */
+.intents{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.intent{position:relative;text-align:right;border:1px solid var(--line);background:var(--card);border-radius:22px;padding:22px 22px 20px;min-height:150px;overflow:hidden;transition:.3s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;justify-content:space-between}
+.intent .ic{font-size:34px;line-height:1}
+.intent h3{font-size:22px;font-weight:800;margin-top:14px}
+.intent small{color:var(--mute);font-size:14px}
+.intent::after{content:"";position:absolute;width:60px;top:-40%;bottom:-40%;left:-80px;background:var(--y);transform:rotate(var(--ang));transition:.45s cubic-bezier(.7,0,.2,1)}
+.intent:hover{transform:translateY(-6px);border-color:var(--y)}
+.intent:hover::after{left:18px}
+.intent .go{position:absolute;left:20px;bottom:18px;font-weight:900;font-size:22px;color:var(--ink);z-index:2;opacity:0;transition:.3s .1s}
+.intent:hover .go{opacity:1}
+
+/* starter */
+.stack{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:s}
+.st{position:relative;border-radius:26px;padding:30px 28px 28px;background:var(--card);border:1px solid var(--line);overflow:hidden;counter-increment:s;transition:.3s}
+.st::before{content:"0" counter(s);position:absolute;left:18px;top:-6px;font-family:'Karantina';font-size:130px;line-height:1;color:transparent;-webkit-text-stroke:1.5px #333;transition:.3s}
+.st:hover::before{-webkit-text-stroke-color:var(--y)}
+.st:hover{border-color:#3a3a3a;transform:translateY(-4px)}
+.st .tag{font-size:13px;color:var(--y);font-weight:700;letter-spacing:.04em}
+.st h3{font-size:30px;font-weight:900;margin:8px 0 8px;position:relative}
+.st p{color:var(--mute);font-size:16px;position:relative;max-width:90%}
+.st a{display:inline-flex;margin-top:18px;font-weight:700;border-bottom:2px solid var(--y);padding-bottom:2px;position:relative}
+.st.big{grid-row:span 2;background:var(--y);color:var(--ink);border:0;display:flex;flex-direction:column;justify-content:flex-end;min-height:420px}
+.st.big::before{-webkit-text-stroke-color:rgba(11,11,11,.25);font-size:220px}
+.st.big .tag{color:var(--ink)}
+.st.big h3{font-size:56px;font-family:'Karantina';font-weight:700;line-height:.9}
+.st.big p{color:#2b2a26;font-size:18px}
+.st.big a{border-color:var(--ink)}
+
+/* directory */
+.dirbar{position:sticky;top:66px;z-index:20;background:rgba(11,11,11,.9);backdrop-filter:blur(14px);padding:16px 0;border-bottom:1px solid var(--line);margin-bottom:26px}
+.searchrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.search{flex:1;min-width:240px;display:flex;align-items:center;gap:10px;background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:0 16px;transition:.2s}
+.search:focus-within{border-color:var(--y)}
+.search input{flex:1;background:none;border:0;outline:0;color:var(--tx);font:inherit;font-size:17px;padding:14px 0}
+.seg{display:flex;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px}
+.seg button{padding:9px 14px;border-radius:10px;font-size:14px;color:var(--mute);transition:.2s;white-space:nowrap}
+.seg button.on{background:var(--tx);color:var(--ink);font-weight:700}
+.tog{padding:11px 16px;border:1px solid var(--line);border-radius:14px;font-size:14px;color:var(--mute);transition:.2s;white-space:nowrap}
+.tog.on{background:var(--y);color:var(--ink);border-color:var(--y);font-weight:800}
+.cats{display:flex;gap:8px;overflow-x:auto;padding-top:14px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cat{flex:none;padding:8px 15px;border-radius:99px;border:1px solid var(--line);font-size:14px;color:var(--mute);transition:.2s}
+.cat:hover{color:var(--tx);border-color:#444}
+.cat.on{background:var(--y);border-color:var(--y);color:var(--ink);font-weight:800}
+.cat em{font-style:normal;opacity:.6;margin-inline-start:4px;font-size:12px}
+.count{color:var(--mute);font-size:15px;margin-bottom:18px}
+.count b{color:var(--y)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.tool{position:relative;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 22px 18px;display:flex;flex-direction:column;gap:10px;overflow:hidden;transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s;animation:pop .45s both}
+@keyframes pop{from{opacity:0;transform:translateY(14px)}}
+.tool:hover{transform:translateY(-5px);border-color:#3d3d3d}
+.tool::before{content:"";position:absolute;width:5px;top:-30%;bottom:-30%;left:30px;background:var(--y);transform:rotate(var(--ang)) translateX(-80px);opacity:0;transition:.4s}
+.tool:hover::before{transform:rotate(var(--ang)) translateX(0);opacity:1}
+.tool .top{display:flex;align-items:center;gap:12px}
+.mono{width:46px;height:46px;border-radius:14px;flex:none;display:grid;place-items:center;font-weight:900;font-size:19px;color:var(--ink);background:var(--y);direction:ltr}
+.tool h3{font-size:21px;font-weight:800;line-height:1.15}
+.tool .cl{font-size:13px;color:var(--y)}
+.star{margin-inline-start:auto;font-size:20px;color:#444;transition:.2s;padding:4px}
+.star:hover{color:var(--y);transform:scale(1.2)}
+.star.on{color:var(--y)}
+.tool p{color:#CFCabd;font-size:15.5px;flex:1}
+.tip{font-size:14px;color:var(--mute);border-right:2px solid var(--y);padding-right:10px}
+.tip b{color:var(--tx)}
+.meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-top:12px;border-top:1px dashed var(--line);margin-top:4px}
+.chip{font-size:12.5px;padding:3px 10px;border-radius:99px;background:#202020;color:var(--mute)}
+.chip.lv{display:flex;align-items:center;gap:6px}
+.dots{display:flex;gap:3px}
+.dots i{width:6px;height:6px;border-radius:50%;background:#3a3a3a}
+.dots i.f{background:var(--y)}
+.new{display:inline-block;vertical-align:middle;margin-inline-start:8px;font-size:11px;font-weight:900;background:var(--tx);color:var(--ink);padding:3px 9px;border-radius:99px;letter-spacing:.04em}
+.go2{margin-inline-start:auto;font-weight:800;font-size:14px;display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:99px;background:#222;transition:.2s}
+.go2:hover{background:var(--y);color:var(--ink)}
+.empty{grid-column:1/-1;text-align:center;padding:80px 20px;color:var(--mute);font-size:19px}
+
+/* big 4 */
+.vs{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:26px;overflow:hidden}
+.vs>div{padding:30px 26px;border-left:1px solid var(--line);background:var(--ink2);transition:.3s;position:relative}
+.vs>div:last-child{border-left:0}
+.vs>div:hover{background:var(--y);color:var(--ink)}
+.vs>div:hover .vm,.vs>div:hover li{color:var(--ink)}
+.vs h3{font-family:'Karantina';font-size:64px;line-height:.85}
+.vs .vm{font-size:14px;color:var(--y);font-weight:700;margin:10px 0 18px}
+.vs ul{list-style:none;display:grid;gap:10px}
+.vs li{font-size:15.5px;color:#cfcabd;padding-right:18px;position:relative}
+.vs li::before{content:"";position:absolute;right:0;top:.6em;width:8px;height:2px;background:currentColor}
+.vs .who{margin-top:20px;font-weight:800;font-size:15px}
+
+/* graveyard */
+.rip{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.tomb{border:1px dashed #3a3a3a;border-radius:120px 120px 18px 18px;padding:40px 18px 22px;text-align:center;background:linear-gradient(#141414,#0d0d0d);transition:.3s}
+.tomb:hover{border-color:var(--y);transform:translateY(-4px)}
+.tomb .t{font-size:13px;color:var(--dim);letter-spacing:.2em}
+.tomb h4{font-size:22px;font-weight:900;margin:8px 0 4px}
+.tomb .d{color:var(--y);font-size:14px;font-weight:700}
+.tomb p{color:var(--mute);font-size:14px;margin-top:10px}
+
+/* footer */
+footer{margin-top:120px;background:var(--y);color:var(--ink);position:relative;overflow:hidden}
+footer .wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding-top:80px;padding-bottom:60px;align-items:center}
+footer .logo{color:var(--tx);background:var(--ink);padding:36px 40px;border-radius:28px;max-width:460px;justify-self:end;width:100%;transform:rotate(-2deg);box-shadow:0 30px 60px rgba(0,0,0,.25)}
+footer h2{font-size:clamp(60px,7vw,110px)}
+footer p{font-size:18px;max-width:520px;margin-top:14px}
+.fbot{border-top:2px solid var(--ink);padding:18px 0;font-size:14px;font-weight:700}
+.fbot .wrap{display:flex;justify-content:space-between;gap:20px;padding:0 28px;flex-wrap:wrap}
+
+/* command palette */
+.pal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);display:none;align-items:flex-start;justify-content:center;padding-top:12vh}
+.pal.open{display:flex;animation:fade .2s}
+@keyframes fade{from{opacity:0}}
+.pbox{width:min(640px,92vw);background:#151515;border:1px solid #333;border-radius:22px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.8)}
+.pbox input{width:100%;background:none;border:0;outline:0;color:var(--tx);font:inherit;font-size:21px;padding:22px 24px;border-bottom:1px solid #2a2a2a}
+.pres{max-height:52vh;overflow:auto;padding:8px}
+.pres a{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px}
+.pres a.act,.pres a:hover{background:var(--y);color:var(--ink)}
+.pres a .mono{width:34px;height:34px;font-size:14px;border-radius:10px}
+.pres a.act .mono{background:var(--ink);color:var(--y)}
+.pres small{opacity:.65;margin-inline-start:auto;font-size:13px}
+.phint{padding:10px 18px;font-size:12.5px;color:var(--dim);border-top:1px solid #222}
+
+.reveal{opacity:0;transform:translateY(30px);transition:1s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:1000px){
+  .bar nav{display:none}
+  .hero .wrap{grid-template-columns:1fr}
+  .herologo{max-width:440px}
+  .slash{left:-70px;opacity:.55}.slash.s2{left:50px;opacity:.4}
+  .intents{grid-template-columns:repeat(2,1fr)}
+  .stack{grid-template-columns:1fr 1fr}.st.big{grid-column:span 2;grid-row:auto;min-height:300px}
+  .vs{grid-template-columns:1fr 1fr}.vs>div{border-bottom:1px solid var(--line)}
+  .rip{grid-template-columns:repeat(2,1fr)}
+  footer .wrap{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  .wrap{padding:0 18px}
+  .kbtn span{display:none}
+  .intents{grid-template-columns:1fr 1fr;gap:10px}.intent{min-height:130px;padding:18px}.intent h3{font-size:18px}
+  .stack{grid-template-columns:1fr}.st.big{grid-column:auto}
+  .vs{grid-template-columns:1fr}
+  .seg button{padding:8px 10px;font-size:13px}
+  .dirbar{top:66px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="kalogo" viewBox="118 272 899 580">
+<defs>
+<g>
+<g id="glyph-0-0">
+<path d="M -0.15625 0 L 9.03125 0 L 20.625 -29.171875 L 32.171875 0 L 41.640625 0 L 25.484375 -38.109375 L 16.328125 -38.109375 Z M 9.203125 -7.453125 L 31.625 -7.453125 L 31.625 -14.3125 L 9.203125 -14.3125 Z M 9.203125 -7.453125 "/>
+</g>
+<g id="glyph-0-1">
+<path d="M 4.078125 0 L 13.015625 0 L 13.015625 -38.109375 L 4.078125 -38.109375 Z M 4.078125 0 "/>
+</g>
+<g id="glyph-0-2">
+</g>
+<g id="glyph-0-3">
+<path d="M 4.078125 0 L 29.234375 0 L 29.234375 -7.515625 L 13.015625 -7.515625 L 13.015625 -38.109375 L 4.078125 -38.109375 Z M 4.078125 0 "/>
+</g>
+<g id="glyph-0-4">
+<path d="M 4.078125 0 L 33.921875 0 L 33.921875 -7.125 L 13.015625 -7.125 L 13.015625 -15.5625 L 31.296875 -15.5625 L 31.296875 -22.640625 L 13.015625 -22.640625 L 13.015625 -30.96875 L 33.3125 -30.96875 L 33.3125 -38.109375 L 4.078125 -38.109375 Z M 4.078125 0 "/>
+</g>
+<g id="glyph-0-5">
+<path d="M 4.078125 -38.109375 L 4.078125 0 L 13.015625 0 L 13.015625 -10.9375 L 20.734375 -10.9375 C 25.742188 -10.9375 29.617188 -12.144531 32.359375 -14.5625 C 35.097656 -16.976562 36.46875 -20.414062 36.46875 -24.875 C 36.46875 -29.125 35.097656 -32.390625 32.359375 -34.671875 C 29.617188 -36.960938 25.742188 -38.109375 20.734375 -38.109375 Z M 13.015625 -18.015625 L 13.015625 -30.96875 L 20.734375 -30.96875 C 23.054688 -30.96875 24.84375 -30.441406 26.09375 -29.390625 C 27.351562 -28.335938 27.984375 -26.742188 27.984375 -24.609375 C 27.984375 -22.429688 27.351562 -20.785156 26.09375 -19.671875 C 24.84375 -18.566406 23.054688 -18.015625 20.734375 -18.015625 Z M 27.328125 0 L 37.453125 0 L 28.25 -14.203125 L 19.59375 -14.203125 Z M 27.328125 0 "/>
+</g>
+<g id="glyph-0-6">
+<path d="M 4.078125 0 L 12.515625 0 L 12.515625 -28.421875 L 10.1875 -27.59375 L 30.703125 0 L 38.703125 0 L 38.703125 -38.109375 L 30.375 -38.109375 L 30.375 -9.640625 L 32.71875 -10.390625 L 12.078125 -38.109375 L 4.078125 -38.109375 Z M 4.078125 0 "/>
+</g>
+<g id="glyph-0-7">
+<path d="M 6.25 -20.40625 C 4.914062 -20.40625 3.8125 -19.96875 2.9375 -19.09375 C 2.0625 -18.226562 1.625 -17.101562 1.625 -15.71875 C 1.625 -14.34375 2.0625 -13.21875 2.9375 -12.34375 C 3.8125 -11.476562 4.914062 -11.046875 6.25 -11.046875 C 7.632812 -11.046875 8.757812 -11.476562 9.625 -12.34375 C 10.5 -13.21875 10.9375 -14.34375 10.9375 -15.71875 C 10.9375 -17.101562 10.5 -18.226562 9.625 -19.09375 C 8.757812 -19.96875 7.632812 -20.40625 6.25 -20.40625 Z M 6.25 -20.40625 "/>
+</g>
+<g id="glyph-0-8">
+<path d="M 4.078125 -38.109375 L 4.078125 0 L 22.3125 0 C 24.53125 0 26.535156 -0.242188 28.328125 -0.734375 C 30.128906 -1.222656 31.65625 -1.921875 32.90625 -2.828125 C 34.15625 -3.734375 35.113281 -4.835938 35.78125 -6.140625 C 36.457031 -7.453125 36.796875 -8.925781 36.796875 -10.5625 C 36.796875 -13.0625 36.085938 -15.171875 34.671875 -16.890625 C 33.253906 -18.617188 31.316406 -19.722656 28.859375 -20.203125 C 30.890625 -20.742188 32.492188 -21.75 33.671875 -23.21875 C 34.847656 -24.6875 35.4375 -26.457031 35.4375 -28.53125 C 35.4375 -30.007812 35.117188 -31.335938 34.484375 -32.515625 C 33.847656 -33.703125 32.929688 -34.710938 31.734375 -35.546875 C 30.535156 -36.378906 29.09375 -37.015625 27.40625 -37.453125 C 25.71875 -37.890625 23.820312 -38.109375 21.71875 -38.109375 Z M 12.953125 -22.703125 L 12.953125 -31.078125 L 21.234375 -31.078125 C 22.828125 -31.117188 24.078125 -30.773438 24.984375 -30.046875 C 25.890625 -29.316406 26.34375 -28.300781 26.34375 -27 C 26.34375 -25.65625 25.890625 -24.601562 24.984375 -23.84375 C 24.078125 -23.082031 22.828125 -22.703125 21.234375 -22.703125 Z M 12.953125 -7.015625 L 12.953125 -16.109375 L 21.234375 -16.109375 C 23.222656 -16.109375 24.78125 -15.707031 25.90625 -14.90625 C 27.03125 -14.113281 27.59375 -13.03125 27.59375 -11.65625 C 27.59375 -10.164062 27.03125 -9.007812 25.90625 -8.1875 C 24.78125 -7.375 23.222656 -6.984375 21.234375 -7.015625 Z M 12.953125 -7.015625 "/>
+</g>
+<g id="glyph-0-9">
+<path d="M 12.296875 -38.109375 L 3.421875 -38.109375 L 3.421875 -15.734375 C 3.421875 -13.191406 3.820312 -10.921875 4.625 -8.921875 C 5.425781 -6.929688 6.566406 -5.226562 8.046875 -3.8125 C 9.535156 -2.394531 11.34375 -1.304688 13.46875 -0.546875 C 15.59375 0.210938 17.941406 0.59375 20.515625 0.59375 C 23.128906 0.59375 25.476562 0.210938 27.5625 -0.546875 C 29.65625 -1.304688 31.4375 -2.394531 32.90625 -3.8125 C 34.375 -5.226562 35.503906 -6.929688 36.296875 -8.921875 C 37.097656 -10.921875 37.5 -13.191406 37.5 -15.734375 L 37.5 -38.109375 L 28.578125 -38.109375 L 28.578125 -15.734375 C 28.578125 -12.941406 27.847656 -10.765625 26.390625 -9.203125 C 24.941406 -7.640625 23.003906 -6.859375 20.578125 -6.859375 C 19.378906 -6.859375 18.257812 -7.066406 17.21875 -7.484375 C 16.1875 -7.898438 15.304688 -8.488281 14.578125 -9.25 C 13.859375 -10.007812 13.296875 -10.929688 12.890625 -12.015625 C 12.492188 -13.109375 12.296875 -14.347656 12.296875 -15.734375 Z M 12.296875 -38.109375 "/>
+</g>
+<g id="glyph-0-10">
+<path d="M 4.078125 -38.109375 L 4.078125 0 L 19.984375 0 C 22.992188 0 25.75 -0.46875 28.25 -1.40625 C 30.757812 -2.351562 32.910156 -3.660156 34.703125 -5.328125 C 36.503906 -7.003906 37.898438 -9.007812 38.890625 -11.34375 C 39.890625 -13.6875 40.390625 -16.253906 40.390625 -19.046875 C 40.390625 -21.878906 39.898438 -24.457031 38.921875 -26.78125 C 37.941406 -29.101562 36.5625 -31.109375 34.78125 -32.796875 C 33.007812 -34.484375 30.890625 -35.789062 28.421875 -36.71875 C 25.953125 -37.644531 23.226562 -38.109375 20.25 -38.109375 Z M 13.015625 -7.234375 L 13.015625 -30.859375 L 20.09375 -30.859375 C 21.71875 -30.859375 23.210938 -30.578125 24.578125 -30.015625 C 25.941406 -29.453125 27.117188 -28.644531 28.109375 -27.59375 C 29.109375 -26.539062 29.898438 -25.28125 30.484375 -23.8125 C 31.066406 -22.34375 31.359375 -20.738281 31.359375 -19 C 31.359375 -17.257812 31.082031 -15.671875 30.53125 -14.234375 C 29.988281 -12.796875 29.238281 -11.550781 28.28125 -10.5 C 27.320312 -9.445312 26.175781 -8.640625 24.84375 -8.078125 C 23.519531 -7.515625 22.0625 -7.234375 20.46875 -7.234375 Z M 13.015625 -7.234375 "/>
+</g>
+<g id="glyph-0-11">
+<path d="M 36.859375 -32.28125 C 35.910156 -33.257812 34.847656 -34.144531 33.671875 -34.9375 C 32.492188 -35.738281 31.25 -36.410156 29.9375 -36.953125 C 28.632812 -37.503906 27.285156 -37.925781 25.890625 -38.21875 C 24.492188 -38.507812 23.101562 -38.65625 21.71875 -38.65625 C 18.8125 -38.65625 16.125 -38.160156 13.65625 -37.171875 C 11.195312 -36.191406 9.054688 -34.820312 7.234375 -33.0625 C 5.421875 -31.3125 4 -29.242188 2.96875 -26.859375 C 1.9375 -24.484375 1.421875 -21.898438 1.421875 -19.109375 C 1.421875 -16.347656 1.925781 -13.757812 2.9375 -11.34375 C 3.957031 -8.9375 5.351562 -6.84375 7.125 -5.0625 C 8.90625 -3.28125 11.019531 -1.890625 13.46875 -0.890625 C 15.914062 0.0976562 18.554688 0.59375 21.390625 0.59375 C 22.773438 0.59375 24.171875 0.4375 25.578125 0.125 C 26.992188 -0.175781 28.375 -0.625 29.71875 -1.21875 C 31.0625 -1.820312 32.34375 -2.550781 33.5625 -3.40625 C 34.78125 -4.257812 35.878906 -5.210938 36.859375 -6.265625 L 31.6875 -11.765625 C 30.300781 -10.347656 28.738281 -9.226562 27 -8.40625 C 25.257812 -7.59375 23.535156 -7.1875 21.828125 -7.1875 C 20.265625 -7.1875 18.785156 -7.492188 17.390625 -8.109375 C 15.992188 -8.722656 14.785156 -9.570312 13.765625 -10.65625 C 12.753906 -11.75 11.96875 -13.03125 11.40625 -14.5 C 10.84375 -15.976562 10.5625 -17.550781 10.5625 -19.21875 C 10.5625 -20.925781 10.84375 -22.515625 11.40625 -23.984375 C 11.96875 -25.453125 12.753906 -26.71875 13.765625 -27.78125 C 14.785156 -28.851562 15.992188 -29.695312 17.390625 -30.3125 C 18.785156 -30.9375 20.265625 -31.25 21.828125 -31.25 C 23.609375 -31.25 25.378906 -30.796875 27.140625 -29.890625 C 28.898438 -28.984375 30.414062 -27.75 31.6875 -26.1875 Z M 36.859375 -32.28125 "/>
+</g>
+<g id="glyph-0-12">
+<path d="M 14.046875 -19.4375 L 0.375 0 L 10.78125 0 L 19.4375 -12.734375 L 28.203125 0 L 38.8125 0 L 25.09375 -19.875 L 37.71875 -38.109375 L 27.265625 -38.109375 L 19.4375 -26.40625 L 11.65625 -38.109375 L 1.3125 -38.109375 Z M 14.046875 -19.4375 "/>
+</g>
+<g id="glyph-0-13">
+<path d="M 4.078125 -38.109375 L 4.078125 0 L 13.015625 0 L 13.015625 -14.8125 L 9.09375 -10.9375 L 20.359375 -10.9375 C 25.253906 -10.9375 29.023438 -12.144531 31.671875 -14.5625 C 34.328125 -16.976562 35.65625 -20.414062 35.65625 -24.875 C 35.65625 -29.125 34.328125 -32.390625 31.671875 -34.671875 C 29.023438 -36.960938 25.253906 -38.109375 20.359375 -38.109375 Z M 9.09375 -18.015625 L 13.015625 -14.15625 L 13.015625 -34.890625 L 9.09375 -30.96875 L 19.921875 -30.96875 C 22.242188 -30.96875 24.03125 -30.441406 25.28125 -29.390625 C 26.539062 -28.335938 27.171875 -26.742188 27.171875 -24.609375 C 27.171875 -22.429688 26.539062 -20.785156 25.28125 -19.671875 C 24.03125 -18.566406 22.242188 -18.015625 19.921875 -18.015625 Z M 9.09375 -18.015625 "/>
+</g>
+<g id="glyph-0-14">
+<path d="M 17.6875 -5.28125 L 18.828125 -5.28125 L 36.640625 -38.109375 L 27.65625 -38.109375 L 18.296875 -20.90625 L 8.703125 -38.109375 L -0.15625 -38.109375 Z M 13.9375 0 L 22.75 0 L 22.75 -16.546875 L 13.9375 -16.546875 Z M 13.9375 0 "/>
+</g>
+</g>
+<clipPath id="clip-0">
+<path clip-rule="nonzero" d="M 480 550 L 668 550 L 668 738 L 480 738 Z M 480 550 "/>
+</clipPath>
+<clipPath id="clip-1">
+<path clip-rule="nonzero" d="M 478.285156 739.746094 L 669.445312 739.746094 L 669.445312 548.589844 L 478.285156 548.589844 Z M 580.058594 705.25 C 592.921875 704.074219 604.378906 699.117188 614.136719 690.5 L 628.589844 721.4375 C 618.25 728.945312 606.769531 734.058594 594.402344 736.664062 Z M 580.058594 705.25 "/>
+</clipPath>
+</defs>
+<path fill-rule="nonzero" fill="#FBC926" fill-opacity="1" d="M 182.652344 467.644531 L 182.652344 533.398438 L 145.078125 533.398438 L 145.078125 307.945312 L 182.652344 307.945312 L 182.652344 430.066406 L 267.199219 307.945312 L 314.167969 307.945312 L 220.230469 448.855469 L 314.167969 533.398438 L 257.804688 533.398438 Z M 182.652344 467.644531 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 303.96875 737.75 L 233.785156 737.75 C 207.953125 737.75 185.894531 728.609375 167.621094 710.332031 C 149.34375 692.054688 140.203125 670 140.203125 644.167969 C 140.203125 618.335938 149.34375 596.28125 167.621094 578.003906 C 185.894531 559.726562 207.953125 550.589844 233.785156 550.589844 L 309.347656 550.589844 L 293.75 581.78125 L 233.785156 581.78125 C 216.5625 581.78125 201.859375 587.875 189.675781 600.058594 C 177.488281 612.242188 171.398438 626.945312 171.398438 644.167969 C 171.398438 661.390625 177.488281 676.09375 189.675781 688.277344 C 201.859375 700.464844 216.5625 706.554688 233.785156 706.554688 L 272.777344 706.554688 L 272.777344 659.765625 L 254.757812 659.765625 L 270.355469 628.570312 L 303.96875 628.570312 Z M 303.96875 737.75 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 407.785156 581.78125 L 360.992188 581.78125 L 360.992188 644.167969 L 407.785156 644.167969 C 416.394531 644.167969 423.746094 641.121094 429.839844 635.027344 C 435.933594 628.9375 438.980469 621.585938 438.980469 612.976562 C 438.980469 604.363281 435.933594 597.011719 429.839844 590.921875 C 423.746094 584.828125 416.394531 581.78125 407.785156 581.78125 M 329.800781 737.75 L 329.800781 550.589844 L 407.785156 550.589844 C 425.007812 550.589844 439.710938 556.679688 451.894531 568.863281 C 464.078125 581.050781 470.171875 595.753906 470.171875 612.976562 C 470.171875 630.195312 464.078125 644.898438 451.894531 657.085938 C 443.769531 665.207031 434.546875 670.609375 424.234375 673.289062 L 477.96875 737.75 L 438.980469 737.75 L 386.949219 675.363281 L 360.992188 675.363281 L 360.992188 737.75 Z M 329.800781 737.75 "/>
+<path fill-rule="nonzero" fill="#FBC926" fill-opacity="1" d="M 467.261719 458.25 L 431.003906 378.398438 L 394.75 458.25 Z M 377.578125 495.824219 L 360.550781 533.398438 L 318.277344 533.398438 L 431.003906 298.550781 L 678.398438 828.03125 L 636.121094 828.03125 L 484.433594 495.824219 Z M 377.578125 495.824219 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 573.867188 706.554688 C 591.085938 706.554688 605.792969 700.464844 617.976562 688.277344 C 630.160156 676.09375 636.253906 661.390625 636.253906 644.167969 C 636.253906 626.945312 630.160156 612.242188 617.976562 600.058594 C 605.792969 587.875 591.085938 581.78125 573.867188 581.78125 C 556.644531 581.78125 541.941406 587.875 529.757812 600.058594 C 517.574219 612.242188 511.480469 626.945312 511.480469 644.167969 C 511.480469 661.390625 517.574219 676.09375 529.757812 688.277344 C 541.941406 700.464844 556.644531 706.554688 573.867188 706.554688 M 573.867188 737.75 C 548.035156 737.75 525.980469 728.609375 507.703125 710.332031 C 489.425781 692.054688 480.285156 670 480.285156 644.167969 C 480.285156 618.335938 489.425781 596.28125 507.703125 578.003906 C 525.980469 559.726562 548.035156 550.589844 573.867188 550.589844 C 599.699219 550.589844 621.753906 559.726562 640.03125 578.003906 C 658.308594 596.28125 667.445312 618.335938 667.445312 644.167969 C 667.445312 670 658.308594 692.054688 640.03125 710.332031 C 621.753906 728.609375 599.699219 737.75 573.867188 737.75 "/>
+<path fill-rule="nonzero" fill="#FBC926" fill-opacity="1" d="M 467.261719 458.25 L 431.003906 378.398438 L 394.75 458.25 Z M 377.578125 495.824219 L 360.550781 533.398438 L 318.277344 533.398438 L 431.003906 298.550781 L 678.398438 828.03125 L 636.121094 828.03125 L 484.433594 495.824219 Z M 377.578125 495.824219 "/>
+<g clip-path="url(#clip-0)">
+<g clip-path="url(#clip-1)">
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 573.867188 706.554688 C 591.085938 706.554688 605.792969 700.464844 617.976562 688.277344 C 630.160156 676.09375 636.253906 661.390625 636.253906 644.167969 C 636.253906 626.945312 630.160156 612.242188 617.976562 600.058594 C 605.792969 587.875 591.085938 581.78125 573.867188 581.78125 C 556.644531 581.78125 541.941406 587.875 529.757812 600.058594 C 517.574219 612.242188 511.480469 626.945312 511.480469 644.167969 C 511.480469 661.390625 517.574219 676.09375 529.757812 688.277344 C 541.941406 700.464844 556.644531 706.554688 573.867188 706.554688 M 573.867188 737.75 C 548.035156 737.75 525.980469 728.609375 507.703125 710.332031 C 489.425781 692.054688 480.285156 670 480.285156 644.167969 C 480.285156 618.335938 489.425781 596.28125 507.703125 578.003906 C 525.980469 559.726562 548.035156 550.589844 573.867188 550.589844 C 599.699219 550.589844 621.753906 559.726562 640.03125 578.003906 C 658.308594 596.28125 667.445312 618.335938 667.445312 644.167969 C 667.445312 670 658.308594 692.054688 640.03125 710.332031 C 621.753906 728.609375 599.699219 737.75 573.867188 737.75 "/>
+</g>
+</g>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 684.019531 667.5625 L 684.019531 550.589844 L 715.210938 550.589844 L 715.210938 667.5625 C 715.210938 678.367188 719.007812 687.566406 726.605469 695.160156 C 734.199219 702.757812 743.398438 706.554688 754.203125 706.554688 C 765.007812 706.554688 774.207031 702.757812 781.800781 695.160156 C 789.398438 687.566406 793.195312 678.367188 793.195312 667.5625 L 793.195312 550.589844 L 824.390625 550.589844 L 824.390625 667.5625 C 824.390625 686.980469 817.542969 703.53125 803.859375 717.21875 C 790.167969 730.90625 773.617188 737.75 754.203125 737.75 C 734.789062 737.75 718.238281 730.90625 704.550781 717.21875 C 690.863281 703.53125 684.019531 686.980469 684.019531 667.5625 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 931.128906 581.78125 L 884.335938 581.78125 L 884.335938 644.167969 L 931.128906 644.167969 C 939.738281 644.167969 947.089844 641.121094 953.183594 635.027344 C 959.273438 628.9375 962.320312 621.585938 962.320312 612.976562 C 962.320312 604.363281 959.273438 597.011719 953.183594 590.921875 C 947.089844 584.828125 939.738281 581.78125 931.128906 581.78125 M 884.335938 675.363281 L 884.335938 737.75 L 853.144531 737.75 L 853.144531 550.589844 L 931.128906 550.589844 C 948.347656 550.589844 963.050781 556.679688 975.238281 568.863281 C 987.421875 581.050781 993.515625 595.753906 993.515625 612.976562 C 993.515625 630.195312 987.421875 644.898438 975.238281 657.085938 C 963.050781 669.269531 948.347656 675.363281 931.128906 675.363281 Z M 884.335938 675.363281 "/>
+<g fill="currentColor" fill-opacity="1">
+<use xlink:href="#glyph-0-0" x="141.312652" y="823.248552"/>
+<use xlink:href="#glyph-0-1" x="182.793782" y="823.248552"/>
+<use xlink:href="#glyph-0-2" x="199.887056" y="823.248552"/>
+<use xlink:href="#glyph-0-3" x="212.462044" y="823.248552"/>
+<use xlink:href="#glyph-0-4" x="242.620241" y="823.248552"/>
+<use xlink:href="#glyph-0-0" x="279.038714" y="823.248552"/>
+<use xlink:href="#glyph-0-5" x="320.519844" y="823.248552"/>
+<use xlink:href="#glyph-0-6" x="360.204547" y="823.248552"/>
+<use xlink:href="#glyph-0-2" x="403.046606" y="823.248552"/>
+<use xlink:href="#glyph-0-7" x="415.621594" y="823.248552"/>
+<use xlink:href="#glyph-0-2" x="428.25102" y="823.248552"/>
+<use xlink:href="#glyph-0-8" x="440.826008" y="823.248552"/>
+<use xlink:href="#glyph-0-9" x="479.639716" y="823.248552"/>
+<use xlink:href="#glyph-0-1" x="520.522037" y="823.248552"/>
+<use xlink:href="#glyph-0-3" x="537.615312" y="823.248552"/>
+<use xlink:href="#glyph-0-10" x="567.773508" y="823.248552"/>
+<use xlink:href="#glyph-0-2" x="609.581262" y="823.248552"/>
+<use xlink:href="#glyph-0-2" x="622.15625" y="823.248552"/>
+<use xlink:href="#glyph-0-2" x="634.731238" y="823.248552"/>
+<use xlink:href="#glyph-0-2" x="647.306226" y="823.248552"/>
+<use xlink:href="#glyph-0-2" x="659.881215" y="823.248552"/>
+<use xlink:href="#glyph-0-2" x="672.456203" y="823.248552"/>
+<use xlink:href="#glyph-0-7" x="685.031191" y="823.248552"/>
+<use xlink:href="#glyph-0-2" x="697.660616" y="823.248552"/>
+<use xlink:href="#glyph-0-2" x="710.235605" y="823.248552"/>
+<use xlink:href="#glyph-0-11" x="722.810593" y="823.248552"/>
+</g>
+<g fill="currentColor" fill-opacity="1">
+<use xlink:href="#glyph-0-12" x="759.664563" y="823.248552"/>
+<use xlink:href="#glyph-0-2" x="799.07708" y="823.248552"/>
+<use xlink:href="#glyph-0-0" x="811.652068" y="823.248552"/>
+<use xlink:href="#glyph-0-13" x="853.133198" y="823.248552"/>
+</g>
+<g fill="currentColor" fill-opacity="1">
+<use xlink:href="#glyph-0-13" x="889.497234" y="823.248552"/>
+</g>
+<g fill="currentColor" fill-opacity="1">
+<use xlink:href="#glyph-0-3" x="925.861269" y="823.248552"/>
+</g>
+<g fill="currentColor" fill-opacity="1">
+<use xlink:href="#glyph-0-14" x="952.045552" y="823.248552"/>
+</g>
+</symbol>
+  </defs>
+</svg>
+
+<header class="bar">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="KA Group"><svg viewBox="0 0 899 580"><use href="#kalogo" width="899" height="580"/></svg></a>
+    <nav>
+      <a href="#intent">מה רוצים לעשות?</a>
+      <a href="#starter">ערכת הפתיחה</a>
+      <a href="#tools">כל הכלים</a>
+      <a href="#big4">ארבעת הגדולים</a>
+      <a href="#rip">מה נסגר</a>
+    </nav>
+    <button class="kbtn" id="openPal" aria-label="חיפוש מהיר">⌕ <span>חיפוש מהיר</span> <kbd>Ctrl K</kbd></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" style="padding-top:60px">
+    <div class="slash"></div><div class="slash s2"></div>
+    <div class="wrap">
+      <div>
+        <span class="eyebrow"><i></i>עודכן 16.11.26 · מהדורת נובמבר</span>
+        <h1 class="disp">
+          <span class="row"><span>כל כלי ה-AI</span></span>
+          <span class="row"><span><span class="hl">בלי הרעש.</span></span></span>
+        </h1>
+        <p class="lead">המדריך של <b>KA Group</b> לכלים שבאמת שווים את הזמן שלכם. נבחרו, נבדקו ומוינו לפי <b>מה רוצים לעשות</b>, לא לפי מה שמדברים עליו השבוע.</p>
+        <div class="cta">
+          <a href="#intent" class="btn pri">בואו נתחיל ←</a>
+          <a href="#tools" class="btn sec">לכל הכלים</a>
+        </div>
+      </div>
+      <div>
+        <div class="herologo"><div class="logo"><svg viewBox="0 0 899 580"><use href="#kalogo" width="899" height="580"/></svg></div></div>
+        <div class="stats">
+          <div><b data-count="tools">0</b><span>כלים במדריך</span></div>
+          <div><b data-count="cats">0</b><span>תחומים</span></div>
+          <div><b data-count="new">0</b><span>חדשים ומעודכנים</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="tickwrap"><div class="ticker" aria-label="מה חדש">
+    <div class="track" id="track"></div>
+  </div></div>
+
+  <section id="intent" class="reveal">
+    <div class="wrap">
+      <div class="sh">
+        <div><div class="num">01 / מתחילים מהמטרה</div><h2 class="disp">מה רוצים לעשות היום?</h2></div>
+        <p>לוחצים על המשימה ומקבלים רק את הכלים שמתאימים לה. בלי לגלול בין עשרות שמות.</p>
+      </div>
+      <div class="intents" id="intents"></div>
+    </div>
+  </section>
+
+  <section id="starter" class="reveal">
+    <div class="wrap">
+      <div class="sh">
+        <div><div class="num">02 / אם יש לכם רק שעה</div><h2 class="disp">ערכת הפתיחה של KA</h2></div>
+        <p>שישה כלים שמכסים 80% מהעבודה היומיומית של מנהלים וצוותים. מתחילים כאן, מתרחבים אחר כך.</p>
+      </div>
+      <div class="stack">
+        <div class="st big"><span class="tag">המוח המרכזי</span><h3>Claude או ChatGPT</h3><p>עוזר אחד שנמצא איתכם כל היום: כתיבה, ניתוח קבצים, חשיבה אסטרטגית והכנת טיוטות. בוחרים אחד ולומדים אותו לעומק.</p><a href="#big4">איך בוחרים? ←</a></div>
+        <div class="st"><span class="tag">למידה מהמסמכים שלכם</span><h3>NotebookLM</h3><p>מעלים מסמכים ומקבלים סיכום, מפת חשיבה ופודקאסט שמסביר את החומר.</p><a href="https://notebooklm.google.com" target="_blank" rel="noopener">כניסה ↗</a></div>
+        <div class="st"><span class="tag">מחקר עם מקורות</span><h3>Perplexity</h3><p>תשובות עדכניות מהרשת, כל משפט עם מקור שאפשר לבדוק.</p><a href="https://www.perplexity.ai" target="_blank" rel="noopener">כניסה ↗</a></div>
+        <div class="st"><span class="tag">מצגת בדקות</span><h3>Gamma</h3><p>מכתבים טקסט חופשי למצגת מעוצבת, דף נחיתה או מסמך.</p><a href="https://gamma.app" target="_blank" rel="noopener">כניסה ↗</a></div>
+        <div class="st"><span class="tag">תמונות ועריכה</span><h3>Nano Banana</h3><p>יצירה ועריכה של תמונות בשיחה, ישירות בתוך Gemini.</p><a href="https://gemini.google.com" target="_blank" rel="noopener">כניסה ↗</a></div>
+      </div>
+      <div class="stack" style="margin-top:18px;grid-template-columns:1fr;counter-reset:s 5">
+        <div class="st" style="display:flex;align-items:center;gap:24px;flex-wrap:wrap"><div style="flex:1;min-width:260px"><span class="tag">לבנות לבד</span><h3>Lovable או Base44</h3><p>מתארים במילים אפליקציה, טופס או כלי פנימי ומקבלים מוצר עובד. בלי לכתוב שורת קוד.</p></div><a href="#tools" data-jump="build" style="margin-top:0">לכל כלי הבנייה ←</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tools">
+    <div class="wrap">
+      <div class="sh reveal">
+        <div><div class="num">03 / הספרייה המלאה</div><h2 class="disp">כל הכלים</h2></div>
+        <p>סננו לפי תחום, רמה ומחיר. סמנו ★ כדי לשמור כלים לרשימה האישית שלכם.</p>
+      </div>
+    </div>
+    <div class="dirbar">
+      <div class="wrap">
+        <div class="searchrow">
+          <label class="search"><span style="color:var(--y);font-size:20px">⌕</span><input id="q" type="search" placeholder="חפשו כלי, שימוש או מילת מפתח…" autocomplete="off"></label>
+          <div class="seg" id="lvl"><button data-v="0" class="on">כל הרמות</button><button data-v="1">מתחילים</button><button data-v="2">בינוני</button><button data-v="3">מתקדמים</button></div>
+          <div class="seg" id="prc"><button data-v="all" class="on">כל המחירים</button><button data-v="free">יש חינם</button><button data-v="paid">בתשלום</button></div>
+          <button class="tog" id="newOnly">✦ חדש</button>
+          <button class="tog" id="favOnly">★ שלי</button>
+        </div>
+        <div class="cats" id="cats"></div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="count" id="count"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section id="big4" class="reveal">
+    <div class="wrap">
+      <div class="sh">
+        <div><div class="num">04 / העוזרים הגדולים</div><h2 class="disp">ארבעת הגדולים</h2></div>
+        <p>כולם טובים. השאלה היא איפה אתם עובדים ומה אתם עושים הכי הרבה. מצב נכון לנובמבר 2026.</p>
+      </div>
+      <div class="vs">
+        <div><h3>ChatGPT</h3><div class="vm">GPT-6 · Intelligent UI</div><ul><li>הכי רב-תכליתי, עם תשובות אינטראקטיביות: גרפים, טפסים וכלים בתוך הצ'אט.</li><li>יצירת תמונות מובנית (GPT Image).</li><li>מצב קולי ואפליקציה מצוינת.</li></ul><div class="who">למי: מי שרוצה כלי אחד לכל דבר.</div></div>
+        <div><h3>Claude</h3><div class="vm">Opus 5.5 · Sonnet 5.5</div><ul><li>כתיבה טבעית ומדויקת, גם בעברית.</li><li>עבודה עם מסמכים ארוכים, ניתוח קבצים ובניית מסמכים, מצגות וכלים.</li><li>Claude Code לבנייה ואוטומציה.</li></ul><div class="who">למי: כתיבה, אסטרטגיה ועבודה מקצועית עמוקה.</div></div>
+        <div><h3>Gemini</h3><div class="vm">Gemini 4 · Nano Banana · Veo</div><ul><li>מחובר לג'ימייל, דרייב, יומן ויוטיוב.</li><li>תמונות (Nano Banana) ווידאו (Veo) באותו מקום.</li><li>NotebookLM כחלק מהמשפחה.</li></ul><div class="who">למי: ארגונים ואנשים שחיים בגוגל.</div></div>
+        <div><h3>Copilot</h3><div class="vm">Microsoft 365 Copilot</div><ul><li>בתוך Word, Excel, PowerPoint, Outlook ו-Teams.</li><li>מכיר את הקבצים והמיילים הארגוניים.</li><li>אבטחת מידע ברמת הארגון.</li></ul><div class="who">למי: ארגונים על מיקרוסופט.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rip" class="reveal">
+    <div class="wrap">
+      <div class="sh">
+        <div><div class="num">05 / כדי שלא תתבלבלו</div><h2 class="disp">נסגרו, הוחלפו, שינו שם</h2></div>
+        <p>תחום שזז כל כך מהר שגם כלים מפורסמים נעלמים. אם מישהו ממליץ לכם על אחד מאלה, הנה מה שקרה.</p>
+      </div>
+      <div class="rip">
+        <div class="tomb"><div class="t">R.I.P</div><h4>Sora</h4><div class="d">נסגר · 2026</div><p>אפליקציית הווידאו של OpenAI נסגרה באפריל, וה-API בספטמבר. החלופות: Veo, Kling, Runway.</p></div>
+        <div class="tomb"><div class="t">R.I.P</div><h4>ChatGPT Atlas</h4><div class="d">נסגר · 9.8.26</div><p>הדפדפן של OpenAI הופסק. היכולות עברו לאפליקציית ChatGPT ולתוסף לכרום.</p></div>
+        <div class="tomb"><div class="t">הוחלף</div><h4>DALL·E</h4><div class="d">פרש</div><p>הוחלף במודלי GPT Image שעובדים ישירות בתוך ChatGPT.</p></div>
+        <div class="tomb"><div class="t">שינה שם</div><h4>Windsurf</h4><div class="d">היום Devin Desktop</div><p>עורך הקוד עבר לחברת Cognition ומופיע היום בשם החדש.</p></div>
+        <div class="tomb"><div class="t">שינה שם</div><h4>Le Chat</h4><div class="d">היום Mistral Vibe</div><p>הצ'אט האירופי של Mistral מופיע מ-2026 בשם החדש.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <h2 class="disp">לומדים. בונים.<br>מיישמים.</h2>
+      <p>KA Group מלווה הנהלות וארגונים בהטמעת AI: הרצאות, סדנאות וליווי צמוד, מהשיחה הראשונה ועד שהכלים עובדים אצלכם ביום-יום.</p>
+    </div>
+    <div class="logo"><svg viewBox="0 0 899 580"><use href="#kalogo" width="899" height="580"/></svg></div>
+  </div>
+  <div class="fbot"><div class="wrap"><span>© 2026 KA Group · כל הזכויות שמורות.</span><span>המחירים והגרסאות משתנים במהירות. כדאי לבדוק באתר הכלי לפני רכישה.</span></div></div>
+</footer>
+
+<div class="pal" id="pal" role="dialog" aria-label="חיפוש מהיר">
+  <div class="pbox">
+    <input id="pq" placeholder="איזה כלי מחפשים?" autocomplete="off">
+    <div class="pres" id="pres"></div>
+    <div class="phint">↑↓ לניווט · Enter לפתיחה · Esc לסגירה</div>
+  </div>
+</div>
+
+<script>
+const CATS={
+ chat:{n:"עוזרי AI",ic:"💬"},research:{n:"מחקר וחיפוש",ic:"🔎"},write:{n:"כתיבה ושפה",ic:"✍️"},slides:{n:"מצגות וויזואליזציה",ic:"📊"},
+ image:{n:"תמונות ועיצוב",ic:"🎨"},video:{n:"וידאו",ic:"🎬"},avatar:{n:"אווטרים ודיבוב",ic:"🧑‍💼"},audio:{n:"קול ומוזיקה",ic:"🎧"},
+ meet:{n:"פגישות ותמלול",ic:"🗓️"},build:{n:"בניית אפליקציות",ic:"🛠️"},agents:{n:"סוכנים ואוטומציה",ic:"🤖"},data:{n:"נתונים",ic:"📈"},local:{n:"קוד פתוח ומקומי",ic:"🧪"}
+};
+const INTENTS=[
+ {c:"chat",h:"לשאול, לכתוב, לחשוב",s:"עוזר אישי לכל משימה"},
+ {c:"research",h:"לחקור נושא לעומק",s:"תשובות עם מקורות"},
+ {c:"slides",h:"להכין מצגת",s:"מטקסט לשקפים בדקות"},
+ {c:"image",h:"ליצור תמונה או עיצוב",s:"פוסטים, באנרים, מוצרים"},
+ {c:"video",h:"להפיק סרטון",s:"מטקסט או מתמונה"},
+ {c:"audio",h:"קול, הקראה ומוזיקה",s:"דיבוב, פודקאסט, שירים"},
+ {c:"build",h:"לבנות אפליקציה",s:"בלי לכתוב קוד"},
+ {c:"agents",h:"לאטמט תהליך",s:"סוכנים שעובדים בשבילכם"}
+];
+// l: level 1-3 · p: free | freemium | paid · n: new
+const T=[
+ // chat
+ {t:"ChatGPT",c:"chat",l:1,p:"freemium",n:1,u:"https://chatgpt.com",d:"העוזר הפופולרי בעולם, עכשיו על GPT-6. עונה עם Intelligent UI: גרפים, טפסים וכלים קטנים בתוך התשובה.",tip:"בקשו \"תציג לי את זה כטבלה אינטראקטיבית\" ותראו את ה-UI החדש בפעולה."},
+ {t:"Claude",c:"chat",l:1,p:"freemium",n:1,u:"https://claude.ai",d:"העוזר של Anthropic. מצטיין בכתיבה, ניתוח מסמכים ארוכים ובניית מסמכים, מצגות וכלים מוכנים לשיתוף.",tip:"העלו קובץ ובקשו ממנו לבנות ממנו מסמך או דף מוכן לשליחה."},
+ {t:"Gemini",c:"chat",l:1,p:"freemium",n:1,u:"https://gemini.google.com",d:"העוזר של גוגל על משפחת Gemini 4, מחובר לג'ימייל, דרייב ויוטיוב. כולל יצירת תמונות ווידאו.",tip:"כתבו @Gmail או @Drive כדי שיחפש ישירות במיילים ובקבצים שלכם."},
+ {t:"Microsoft Copilot",c:"chat",l:1,p:"freemium",u:"https://copilot.microsoft.com",d:"העוזר של מיקרוסופט, ובגרסה הארגונית עובד בתוך Word, Excel, PowerPoint, Outlook ו-Teams.",tip:"ב-Teams: בקשו סיכום פגישה עם משימות לפי אחראי."},
+ {t:"Grok",c:"chat",l:1,p:"freemium",u:"https://grok.com",d:"העוזר של xAI, מחובר לזרם המידע של X. טוב למה שקורה עכשיו ברשתות.",tip:"שאלו \"מה אומרים ב-X על…\" לקבלת תמונת מצב מהירה."},
+ {t:"Mistral Vibe",c:"chat",l:2,p:"freemium",n:1,u:"https://mistral.ai",d:"העוזר האירופי של Mistral (לשעבר Le Chat), על Mistral Large 4. מתאים לארגונים שרגישים לפרטיות מידע.",tip:"שווה בדיקה לארגונים שמחפשים ספק אירופי."},
+ {t:"DeepSeek",c:"chat",l:2,p:"free",u:"https://chat.deepseek.com",d:"מודל סיני חזק וחינמי, עם מודלים פתוחים שאפשר להריץ גם מקומית.",tip:"לא להעלות אליו מידע ארגוני רגיש."},
+ // research
+ {t:"Perplexity",c:"research",l:1,p:"freemium",u:"https://www.perplexity.ai",d:"מנוע תשובות: שואלים שאלה ומקבלים תשובה עדכנית מהרשת, עם מקורות לכל טענה.",tip:"השתמשו ב-Deep Research לדוח מסודר על שוק, מתחרה או טרנד."},
+ {t:"Comet",c:"research",l:2,p:"free",n:1,u:"https://www.perplexity.ai/comet",d:"דפדפן ה-AI של Perplexity, חינמי. מסכם דפים, משווה בין אתרים ומבצע משימות בשבילכם.",tip:"אל תתנו לסוכן לפעול בחשבונות רגישים כמו בנק."},
+ {t:"NotebookLM",c:"research",l:1,p:"freemium",n:1,u:"https://notebooklm.google.com",d:"מעלים מסמכים, קישורים וסרטונים ומקבלים צ'אט מבוסס מקורות, פודקאסט, סרטון הסבר, מפת חשיבה ואינפוגרפיקה.",tip:"הפכו מצגת הדרכה לפודקאסט של 10 דקות לעובדים."},
+ {t:"Consensus",c:"research",l:2,p:"freemium",u:"https://consensus.app",d:"חיפוש במאמרים מדעיים: מה המחקר אומר על שאלה, עם סיכום ההסכמה בין המחקרים.",tip:"מצוין לביסוס טענות בהרצאה או במצגת."},
+ {t:"Elicit",c:"research",l:2,p:"freemium",u:"https://elicit.com",d:"עוזר מחקר אקדמי: מוצא מאמרים, מחלץ נתונים לטבלה ומסכם ממצאים.",tip:"בקשו טבלת השוואה בין 10 מחקרים בלחיצה."},
+ // write
+ {t:"Grammarly",c:"write",l:1,p:"freemium",u:"https://www.grammarly.com",d:"תיקון וליטוש כתיבה באנגלית בכל מקום שכותבים: מייל, לינקדאין, מסמכים.",tip:"הגדירו טון (רשמי, ידידותי) לפני מייל חשוב."},
+ {t:"DeepL",c:"write",l:1,p:"freemium",u:"https://www.deepl.com",d:"תרגום מדויק ושוטף, כולל תרגום מסמכים שלמים עם שמירת העיצוב.",tip:"DeepL Write משפר ניסוח באנגלית, לא רק מתרגם."},
+ {t:"Wordtune",c:"write",l:1,p:"freemium",u:"https://www.wordtune.com",d:"פיתוח ישראלי (AI21) לשכתוב משפטים: קצר יותר, רשמי יותר, ברור יותר.",tip:"מעולה לשיפור משפט אחד שלא יושב טוב."},
+ {t:"Copy.ai",c:"write",l:1,p:"freemium",u:"https://www.copy.ai",d:"כתיבה שיווקית ותהליכי מכירה: מיילים, פוסטים ותוכן לקמפיינים.",tip:"בנו תבנית אחת ושכפלו אותה לכל הקהלים."},
+ // slides
+ {t:"Gamma",c:"slides",l:1,p:"freemium",u:"https://gamma.app",d:"הופך טקסט, מסמך או רעיון למצגת, דף נחיתה או אתר מעוצב בדקות.",tip:"הדביקו סיכום פגישה ובקשו 8 שקפים למנהלים."},
+ {t:"Napkin AI",c:"slides",l:1,p:"freemium",u:"https://www.napkin.ai",d:"הופך פסקה לתרשים, אינפוגרפיקה או דיאגרמה עסקית שאפשר לערוך.",tip:"מושלם לשקף אחד שצריך \"להראות\" תהליך."},
+ {t:"Beautiful.ai",c:"slides",l:1,p:"paid",u:"https://www.beautiful.ai",d:"שקפים שמסדרים את עצמם ושומרים על שפה עיצובית אחידה לכל הצוות.",tip:"טענו את מיתוג החברה פעם אחת."},
+ // image
+ {t:"Nano Banana",c:"image",l:1,p:"freemium",n:1,u:"https://gemini.google.com",d:"מודל התמונות של גוגל (גרסה 2.1 ו-Pro) בתוך Gemini. מצוין בעריכת תמונות קיימות בשיחה ובשמירה על דמות עקבית.",tip:"העלו תמונת מוצר ובקשו 5 רקעים שונים לקמפיין."},
+ {t:"GPT Image",c:"image",l:1,p:"freemium",n:1,u:"https://chatgpt.com/images",d:"יצירת תמונות בתוך ChatGPT (גרסה 2.6). חזק בטקסט בתוך תמונה, אינפוגרפיקות ועיצובים מדויקים.",tip:"תארו פוסטר עם כותרת, והוא ישלב את הטקסט בתמונה."},
+ {t:"Midjourney",c:"image",l:1,p:"paid",n:1,u:"https://www.midjourney.com",d:"עדיין האסתטיקה הכי אמנותית בשוק. V8.2 כברירת מחדל, עם עורך ווידאו קצר.",tip:"השתמשו ב-Style Reference לשמירה על קו עיצובי."},
+ {t:"Ideogram",c:"image",l:1,p:"freemium",u:"https://ideogram.ai",d:"מתמחה בתמונות עם טקסט מדויק: לוגו, פוסטר, הזמנה ומוצר.",tip:"מעולה לסקיצות לוגו ראשונות."},
+ {t:"Adobe Firefly",c:"image",l:1,p:"freemium",u:"https://firefly.adobe.com",d:"יצירה ועריכה בטוחה לשימוש מסחרי, משולב בפוטושופ ובכל כלי Adobe.",tip:"הבחירה הבטוחה לארגונים שחוששים מזכויות יוצרים."},
+ {t:"Canva AI",c:"image",l:1,p:"freemium",u:"https://www.canva.com",d:"חליפת ה-AI של קנבה: יצירת תמונות, עריכה קסומה, הסרת רקע ועיצובים מוכנים.",tip:"Magic Resize הופך פוסט אחד לכל הפורמטים."},
+ {t:"Recraft",c:"image",l:2,p:"freemium",u:"https://www.recraft.ai",d:"גרפיקה וקטורית (SVG), אייקונים ולוגואים שאפשר להגדיל בלי לאבד איכות.",tip:"הגדירו פלטת צבעים של המותג לכל יצירה."},
+ {t:"Krea",c:"image",l:2,p:"freemium",u:"https://www.krea.ai",d:"סטודיו שמרכז מודלים רבים: יצירה בזמן אמת, שיפור איכות והנפשה.",tip:"Upscale הופך תמונה מטושטשת לחדה."},
+ {t:"Freepik AI",c:"image",l:1,p:"freemium",u:"https://www.freepik.com/ai",d:"פלטפורמה אחת עם המודלים המובילים לתמונות ווידאו, ומאגר עיצובים ענק.",tip:"טוב כשרוצים להשוות כמה מודלים על אותו פרומפט."},
+ {t:"Leonardo",c:"image",l:1,p:"freemium",u:"https://leonardo.ai",d:"יצירת תמונות, אימון מודל על הסגנון שלכם וסרטונים קצרים.",tip:"אמנו מודל על 15 תמונות של המותג."},
+ {t:"Photoroom",c:"image",l:1,p:"freemium",u:"https://www.photoroom.com",d:"צילומי מוצר: מסיר רקע ויוצר רקע סטודיו מקצועי בשניות.",tip:"מעולה לחנויות אונליין ולקטלוג."},
+ {t:"Magnific",c:"image",l:2,p:"paid",u:"https://magnific.ai",d:"הגדלה ושיפור איכות תמונות עם הוספת פרטים, ברמה של הדפסה.",tip:"הצעד האחרון לפני שמדפיסים רול-אפ."},
+ {t:"Tripo",c:"image",l:2,p:"freemium",u:"https://www.tripo3d.ai",d:"הופך תמונה או טקסט למודל תלת-ממדי מלא תוך שניות.",tip:"להדמיות מוצר ולמשחקים."},
+ // video
+ {t:"Veo",c:"video",l:1,p:"freemium",u:"https://gemini.google.com",d:"מודל הווידאו של גוגל (3.1), כולל סאונד ודיאלוג מובנים. זמין ב-Gemini ובכלי Flow.",tip:"התחילו מתמונה שיצרתם ב-Nano Banana ובקשו להניע אותה."},
+ {t:"Kling",c:"video",l:1,p:"freemium",n:1,u:"https://klingai.com",d:"Kling 3.0: וידאו קולנועי ותנועה ריאליסטית, נחשב התמורה הטובה ביותר למחיר.",tip:"יש קרדיטים יומיים חינמיים לניסוי."},
+ {t:"Runway",c:"video",l:2,p:"freemium",u:"https://runwayml.com",d:"Gen-4.5 וכלי עריכה מקצועיים: מחיקת אובייקטים, שינוי סצנה ושמירה על דמות.",tip:"הכי טוב כשצריך שליטה מדויקת בעריכה."},
+ {t:"Seedance",c:"video",l:1,p:"freemium",n:1,u:"https://dreamina.capcut.com",d:"מודל הווידאו של ByteDance (2.0) דרך Dreamina, עם סאונד מובנה ותוצאות חזקות מאוד.",tip:"מתחבר ישירות לעבודה ב-CapCut."},
+ {t:"Luma Dream Machine",c:"video",l:1,p:"freemium",u:"https://lumalabs.ai",d:"מודל Ray3: מצוין בהנפשת תמונה לווידאו ובתנועת מצלמה חלקה.",tip:"השתמשו ב-Keyframes כדי לקבוע התחלה וסוף."},
+ {t:"Hailuo",c:"video",l:1,p:"freemium",u:"https://hailuoai.video",d:"מודל הווידאו של MiniMax, תנועה חלקה וריאליסטית במחיר נגיש.",tip:"טוב לסצנות עם אנשים בתנועה."},
+ {t:"Higgsfield",c:"video",l:1,p:"freemium",n:1,u:"https://higgsfield.ai",d:"סטודיו שמרכז את מודלי הווידאו המובילים עם תנועות מצלמה מוכנות.",tip:"בחרו תנועת מצלמה מוכנה במקום לתאר אותה."},
+ {t:"PixVerse",c:"video",l:1,p:"freemium",u:"https://pixverse.ai",d:"וידאו מהיר ואפקטים ויראליים לרשתות, עם מסלול חינמי נדיב.",tip:"לרילס מהירים עם אפקט."},
+ {t:"CapCut",c:"video",l:1,p:"freemium",u:"https://www.capcut.com",d:"עורך וידאו פופולרי עם כתוביות אוטומטיות, הסרת רקע ותבניות.",tip:"כתוביות אוטומטיות בעברית בלחיצה."},
+ {t:"Opus Clip",c:"video",l:1,p:"freemium",u:"https://www.opus.pro",d:"חותך הרצאה או וובינר ארוך לקליפים קצרים עם כתוביות וציון ויראליות.",tip:"הרצאה של שעה הופכת ל-10 רילס."},
+ {t:"Captions",c:"video",l:1,p:"freemium",u:"https://www.captions.ai",d:"עריכת וידאו לרשתות: כתוביות, תיקון מבט למצלמה ותרגום.",tip:"Eye Contact מתקן מבט כשקוראים מטקסט."},
+ {t:"Descript",c:"video",l:2,p:"freemium",u:"https://www.descript.com",d:"עורכים וידאו ופודקאסט כמו מסמך: מוחקים מילה מהתמלול והיא נמחקת מהסרטון.",tip:"מסיר \"אממ\" ושתיקות אוטומטית."},
+ // avatar
+ {t:"HeyGen",c:"avatar",l:1,p:"freemium",u:"https://www.heygen.com",d:"אווטר דיגיטלי שלכם, דיבוב סרטונים לשפות אחרות בקול שלכם וסוכני וידאו.",tip:"תרגמו סרטון הדרכה לאנגלית בקול ובשפתיים שלכם."},
+ {t:"Synthesia",c:"avatar",l:1,p:"paid",u:"https://www.synthesia.io",d:"סרטוני הדרכה והטמעה עם אווטרים, בנוי לארגונים גדולים.",tip:"לומדות פנים-ארגוניות בכמה שפות."},
+ {t:"Hedra",c:"avatar",l:1,p:"freemium",u:"https://www.hedra.com",d:"דמויות מדברות עם הבעות פנים חיות מתמונה אחת ושמע.",tip:"להחיות דמות למצגת או לפוסט."},
+ {t:"D-ID",c:"avatar",l:1,p:"freemium",u:"https://www.d-id.com",d:"אווטרים מדברים וסוכני שיחה עם פנים, לשירות לקוחות ולהדרכה.",tip:"סוכן שירות עם פנים באתר."},
+ // audio
+ {t:"ElevenLabs",c:"audio",l:1,p:"freemium",n:1,u:"https://elevenlabs.io",d:"המוביל בקול: הקראה טבעית, שיבוט קול, דיבוב, מוזיקה ותמלול (Scribe v3), כולל עברית.",tip:"שבטו את הקול שלכם להקראת תכני הדרכה."},
+ {t:"Suno",c:"audio",l:1,p:"freemium",n:1,u:"https://suno.com",d:"Suno v5.5: שיר מלא עם מילים, לחן ושירה מתיאור קצר. כולל סטודיו לעריכה.",tip:"שיר לכנס או לאירוע צוות בחמש דקות."},
+ {t:"Udio",c:"audio",l:2,p:"freemium",u:"https://www.udio.com",d:"שירה ריאליסטית מאוד. עבר ב-2026 למודל מורשה, ולכן כדאי לבדוק מה מותר להוריד ולפרסם.",tip:"בדקו את תנאי השימוש לפני פרסום."},
+ {t:"Adobe Podcast",c:"audio",l:1,p:"freemium",u:"https://podcast.adobe.com",d:"מנקה רעשים והופך הקלטה מהבית לאיכות אולפן בלחיצה.",tip:"Enhance Speech לכל הקלטה מהטלפון."},
+ {t:"Hume",c:"audio",l:2,p:"freemium",u:"https://www.hume.ai",d:"קול AI עם אינטליגנציה רגשית: מזהה טון ומגיב בהתאם.",tip:"מעניין במיוחד לחוויית לקוח ומוקדים."},
+ // meet
+ {t:"Granola",c:"meet",l:1,p:"freemium",n:1,u:"https://www.granola.ai",d:"פנקס פגישות חכם שמקליט מהמחשב בלי בוט בשיחה, ומשלים את הסיכום על בסיס הנקודות שלכם.",tip:"כתבו 3 מילים בפגישה, הוא ישלים את השאר."},
+ {t:"tl;dv",c:"meet",l:1,p:"freemium",u:"https://tldv.io",d:"מקליט Zoom, Teams ו-Meet, מתמלל, מסכם ומעדכן CRM.",tip:"צרו תבנית סיכום קבועה לפגישות מכירה."},
+ {t:"Fireflies",c:"meet",l:1,p:"freemium",u:"https://fireflies.ai",d:"תמלול וסיכום פגישות עם חיפוש בכל השיחות שהיו.",tip:"שאלו \"מה הלקוח ביקש בשלוש הפגישות האחרונות?\""},
+ {t:"Otter",c:"meet",l:1,p:"freemium",u:"https://otter.ai",d:"תמלול וסיכום פגישות באנגלית, עם סוכן שעונה על שאלות מהפגישה.",tip:"מתאים בעיקר לפגישות באנגלית."},
+ // build
+ {t:"Lovable",c:"build",l:1,p:"freemium",u:"https://lovable.dev",d:"מתארים אפליקציה במילים ומקבלים מוצר עובד, כולל מסד נתונים והתחברות משתמשים.",tip:"התחילו מ\"מסך אחד שעושה דבר אחד\" והרחיבו."},
+ {t:"Base44",c:"build",l:1,p:"freemium",n:1,u:"https://base44.com",d:"פיתוח ישראלי (בבעלות Wix) לבניית אפליקציות וכלים פנימיים בשיחה, הכל כלול.",tip:"מושלם לכלי פנימי לצוות: טפסים, מעקב, דשבורד."},
+ {t:"Bolt",c:"build",l:1,p:"freemium",u:"https://bolt.new",d:"בונה אתרים ואפליקציות ישירות בדפדפן, מהר מאוד.",tip:"טוב לאב-טיפוס להצגה בפגישה."},
+ {t:"v0",c:"build",l:2,p:"freemium",u:"https://v0.app",d:"של Vercel: ממשקים ואתרים איכותיים מטקסט או מצילום מסך, עם העלאה לאוויר בלחיצה.",tip:"העלו צילום מסך של אתר שאהבתם כהשראה."},
+ {t:"Replit",c:"build",l:2,p:"freemium",u:"https://replit.com",d:"סוכן שבונה, מריץ ומעלה לאוויר אפליקציות מלאות, הכל במקום אחד.",tip:"כולל אחסון, כך שאין צורך בשרת."},
+ {t:"Cursor",c:"build",l:3,p:"freemium",u:"https://cursor.com",d:"עורך הקוד המוביל עם סוכנים שעובדים במקביל על הפרויקט.",tip:"למפתחים שרוצים לעבוד מהר פי כמה."},
+ {t:"Claude Code",c:"build",l:3,p:"paid",u:"https://www.anthropic.com/claude-code",d:"סוכן שבונה ומתחזק תוכנה ואוטומציות, בטרמינל, באפליקציה ובדפדפן.",tip:"נכלל במנוי Claude בתשלום."},
+ {t:"Codex",c:"build",l:3,p:"paid",u:"https://openai.com/codex",d:"סוכן הקוד של OpenAI, עובד על משימות במקביל בענן ובמחשב.",tip:"נכלל במנויי ChatGPT בתשלום."},
+ {t:"Antigravity",c:"build",l:3,p:"freemium",n:1,u:"https://antigravity.google",d:"סביבת הפיתוח של גוגל שמחלקת פרויקט למשימות ומריצה סוכנים על כל אחת.",tip:"מבוסס Gemini, חזק במיוחד בעבודה מול אתרים."},
+ {t:"GitHub Copilot",c:"build",l:3,p:"freemium",u:"https://github.com/features/copilot",d:"עוזר הקוד של GitHub, עם סוכן שפותר משימות ופותח בקשות מיזוג.",tip:"הסטנדרט בצוותי פיתוח ארגוניים."},
+ // agents
+ {t:"Manus",c:"agents",l:1,p:"freemium",n:1,u:"https://manus.im",d:"סוכן כללי שמבצע משימה מקצה לקצה: מחקר, טבלאות, מצגות ואתרים, בזמן שאתם עושים משהו אחר.",tip:"תנו לו משימה שלמה, לא שאלה."},
+ {t:"n8n",c:"agents",l:3,p:"freemium",u:"https://n8n.io",d:"בניית תהליכי אוטומציה וסוכני AI בגרירה, עם מאות חיבורים. אפשר גם להתקין על שרת שלכם.",tip:"מתחילים מתבנית מוכנה בספרייה."},
+ {t:"Make",c:"agents",l:2,p:"freemium",u:"https://www.make.com",d:"אוטומציה ויזואלית בין אלפי אפליקציות, עכשיו עם סוכני AI מובנים.",tip:"טופס → סיכום AI → הודעה לצוות. 15 דקות."},
+ {t:"Zapier",c:"agents",l:1,p:"freemium",u:"https://zapier.com",d:"האוטומציה הקלה ביותר להתחלה, כולל סוכנים שפועלים לפי הנחיה בשפה חופשית.",tip:"תארו את התהליך במילים, הוא יבנה אותו."},
+ {t:"OpenClaw",c:"agents",l:3,p:"free",n:1,u:"https://openclaw.ai",d:"סוכן אישי בקוד פתוח שרץ אצלכם ומחובר לוואטסאפ, טלגרם ולכלים שלכם.",tip:"דורש הקמה טכנית ותשומת לב לאבטחה."},
+ // data
+ {t:"Julius AI",c:"data",l:1,p:"freemium",u:"https://julius.ai",d:"מעלים אקסל או CSV ושואלים בשפה חופשית. מקבלים ניתוח, גרפים ותובנות.",tip:"\"מה שלושת הדברים הכי מפתיעים בנתונים?\""},
+ {t:"Copilot ב-Excel",c:"data",l:2,p:"paid",u:"https://www.microsoft.com/microsoft-365/copilot",d:"ניתוח, נוסחאות וגרפים ישירות בתוך הגיליון הארגוני.",tip:"בקשו עמודת סיווג אוטומטית לטקסט חופשי."},
+ // local
+ {t:"Ollama",c:"local",l:3,p:"free",u:"https://ollama.com",d:"הרצת מודלי שפה פתוחים על המחשב שלכם, בלי אינטרנט ובלי שהמידע יוצא.",tip:"לפרטיות מלאה של מידע רגיש."},
+ {t:"LM Studio",c:"local",l:3,p:"free",u:"https://lmstudio.ai",d:"ממשק נוח להורדה והרצה של מודלים מקומיים, בלי שורת פקודה.",tip:"הדרך הקלה להתחיל עם מודלים מקומיים."},
+ {t:"Hugging Face",c:"local",l:3,p:"free",u:"https://huggingface.co",d:"הבית של הקוד הפתוח: מאות אלפי מודלים, מאגרי נתונים והדגמות.",tip:"Spaces: לנסות מודלים בדפדפן."},
+ {t:"ComfyUI",c:"local",l:3,p:"free",u:"https://www.comfy.org",d:"בניית תהליכי יצירת תמונה ווידאו בצמתים, עם שליטה מלאה.",tip:"לאנשי קריאייטיב שרוצים שליטה מקסימלית."}
+];
+
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const PR={free:"חינם",freemium:"חינם + בתשלום",paid:"בתשלום"};
+const LV=["","מתחילים","בינוני","מתקדמים"];
+let favs=[];try{favs=JSON.parse(localStorage.getItem('ka_favs')||'[]')}catch(e){}
+const S={q:"",lvl:0,prc:"all",cat:"all",nw:false,fav:false};
+const mono=t=>{const w=t.replace(/[^A-Za-z0-9 ]/g,' ').trim().split(/\s+/);return (w.length>1?w[0][0]+w[1][0]:t.slice(0,2)).toUpperCase()};
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+// ticker
+const NEWS=["GPT-6 בצ'אטGPT לכולם, עם Intelligent UI","Gemini 4 Carbon זמין לכלל המשתמשים","Claude Opus 5.5 ו-Sonnet 5.5","Nano Banana 2.1 לעריכת תמונות","GPT Image 2.6","Midjourney V8.2","Kling 3.0 ו-Seedance 2.0 בווידאו","Suno v5.5","NotebookLM עם סוכן מחקר","Comet של Perplexity חינם","Sora ו-Atlas נסגרו"];
+$('#track').innerHTML=[...NEWS,...NEWS].map(n=>`<span>${n}</span>`).join('');
+
+// counters
+const newCount=T.filter(t=>t.n).length;
+const tgt={tools:T.length,cats:Object.keys(CATS).length,new:newCount};
+$$('[data-count]').forEach(el=>{const end=tgt[el.dataset.count];let st=null;const step=ts=>{st=st||ts;const p=Math.min((ts-st)/1400,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)};setTimeout(()=>requestAnimationFrame(step),500)});
+
+// intents
+$('#intents').innerHTML=INTENTS.map(i=>`<button class="intent" data-c="${i.c}"><span class="ic">${CATS[i.c].ic}</span><div><h3>${i.h}</h3><small>${i.s} · ${T.filter(t=>t.c===i.c).length} כלים</small></div><span class="go">←</span></button>`).join('');
+
+// cats
+function renderCats(){
+  const all=[["all","הכל",T.length],...Object.entries(CATS).map(([k,v])=>[k,v.ic+" "+v.n,T.filter(t=>t.c===k).length])];
+  $('#cats').innerHTML=all.map(([k,n,c])=>`<button class="cat${S.cat===k?' on':''}" data-c="${k}">${n}<em>${c}</em></button>`).join('');
+}
+function match(t){
+  const q=S.q.trim().toLowerCase();
+  if(q){const hay=(t.t+' '+t.d+' '+t.tip+' '+CATS[t.c].n).toLowerCase();if(!q.split(/\s+/).every(w=>hay.includes(w)))return false}
+  if(S.lvl&&t.l!==S.lvl)return false;
+  if(S.prc==="free"&&t.p==="paid")return false;
+  if(S.prc==="paid"&&t.p==="free")return false;
+  if(S.cat!=="all"&&t.c!==S.cat)return false;
+  if(S.nw&&!t.n)return false;
+  if(S.fav&&!favs.includes(t.t))return false;
+  return true;
+}
+function render(){
+  const list=T.filter(match);
+  $('#count').innerHTML=`מציגים <b>${list.length}</b> מתוך ${T.length} כלים`;
+  if(!list.length){$('#grid').innerHTML=`<div class="empty">${S.fav?'עוד לא סימנתם כלים. לחצו ★ על כלי כדי לשמור אותו כאן.':'לא נמצאו כלים. נסו לנקות סינון או לחפש מילה אחרת.'}</div>`;return}
+  $('#grid').innerHTML=list.map((t,i)=>`
+  <article class="tool" style="animation-delay:${Math.min(i*25,500)}ms">
+    <div class="top"><span class="mono">${mono(t.t)}</span><div><h3>${esc(t.t)}${t.n?'<span class="new">חדש</span>':''}</h3><div class="cl">${CATS[t.c].n}</div></div>
+      <button class="star${favs.includes(t.t)?' on':''}" data-f="${esc(t.t)}" aria-label="שמירה לרשימה שלי">${favs.includes(t.t)?'★':'☆'}</button></div>
+    <p>${t.d}</p>
+    <div class="tip"><b>טיפ:</b> ${t.tip}</div>
+    <div class="meta"><span class="chip lv"><span class="dots">${[1,2,3].map(k=>`<i class="${k<=t.l?'f':''}"></i>`).join('')}</span>${LV[t.l]}</span><span class="chip">${PR[t.p]}</span>
+      <a class="go2" href="${t.u}" target="_blank" rel="noopener">כניסה ↗</a></div>
+  </article>`).join('');
+}
+renderCats();render();
+
+$('#q').addEventListener('input',e=>{S.q=e.target.value;render()});
+$('#lvl').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;S.lvl=+b.dataset.v;$$('#lvl button').forEach(x=>x.classList.toggle('on',x===b));render()});
+$('#prc').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;S.prc=b.dataset.v;$$('#prc button').forEach(x=>x.classList.toggle('on',x===b));render()});
+$('#newOnly').addEventListener('click',e=>{S.nw=!S.nw;e.currentTarget.classList.toggle('on',S.nw);render()});
+$('#favOnly').addEventListener('click',e=>{S.fav=!S.fav;e.currentTarget.classList.toggle('on',S.fav);render()});
+$('#cats').addEventListener('click',e=>{const b=e.target.closest('.cat');if(!b)return;S.cat=b.dataset.c;renderCats();render()});
+$('#grid').addEventListener('click',e=>{const b=e.target.closest('.star');if(!b)return;const n=b.dataset.f;favs=favs.includes(n)?favs.filter(x=>x!==n):[...favs,n];try{localStorage.setItem('ka_favs',JSON.stringify(favs))}catch(err){}render()});
+function goCat(c){S.cat=c;S.q="";$('#q').value="";renderCats();render();document.getElementById('tools').scrollIntoView({behavior:'smooth'})}
+$('#intents').addEventListener('click',e=>{const b=e.target.closest('.intent');if(b)goCat(b.dataset.c)});
+$$('[data-jump]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();goCat(a.dataset.jump)}));
+
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.12});
+$$('.reveal').forEach(el=>io.observe(el));
+
+// command palette
+const pal=$('#pal'),pq=$('#pq'),pres=$('#pres');let pi=0,pl=[];
+function openPal(){pal.classList.add('open');pq.value='';pfill();setTimeout(()=>pq.focus(),30)}
+function closePal(){pal.classList.remove('open')}
+function pfill(){const q=pq.value.trim().toLowerCase();pl=T.filter(t=>!q||(t.t+' '+t.d+' '+CATS[t.c].n).toLowerCase().includes(q)).slice(0,9);pi=0;pdraw()}
+function pdraw(){pres.innerHTML=pl.length?pl.map((t,i)=>`<a href="${t.u}" target="_blank" rel="noopener" class="${i===pi?'act':''}"><span class="mono">${mono(t.t)}</span><b>${esc(t.t)}</b><small>${CATS[t.c].n}</small></a>`).join(''):'<div style="padding:18px;color:var(--mute)">לא נמצא. נסו מילה אחרת.</div>'}
+$('#openPal').addEventListener('click',openPal);
+pal.addEventListener('click',e=>{if(e.target===pal)closePal()});
+pq.addEventListener('input',pfill);
+pq.addEventListener('keydown',e=>{if(e.key==='ArrowDown'){pi=Math.min(pi+1,pl.length-1);pdraw();e.preventDefault()}else if(e.key==='ArrowUp'){pi=Math.max(pi-1,0);pdraw();e.preventDefault()}else if(e.key==='Enter'&&pl[pi]){pres.querySelectorAll('a')[pi].click()}});
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();pal.classList.contains('open')?closePal():openPal()}else if(e.key==='Escape')closePal();else if(e.key==='/'&&!/input|textarea/i.test(document.activeElement.tagName)){e.preventDefault();openPal()}});
+</script>
+</body>
+</html>
